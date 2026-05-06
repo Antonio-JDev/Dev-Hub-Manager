@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>DevHub Manager - Kanban Board - Gerenciar Tarefas</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3B82F6", // Vivid blue for primary actions
+                        "primary-hover": "#2563EB",
+                        "background-light": "#F3F4F6", // Very light gray for light mode
+                        "background-dark": "#0a1a2f", // Deep Navy almost black for background
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#112240", // Slightly lighter navy for cards
+                        "surface-darker": "#0a1a2f", // Darker navy for sidebar matching main bg
+                        "accent-teal": "#10B981",
+                        "accent-purple": "#8B5CF6",
+                        "accent-orange": "#F59E0B",
+                        "text-secondary": "#94A3B8",
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-sans antialiased min-h-screen flex dark">
+    <aside
+        class="w-64 bg-white dark:bg-[#081526] border-r border-gray-200 dark:border-gray-800 flex flex-col fixed h-full z-20 transition-all duration-300">
+        <div class="h-16 flex items-center px-6 border-b border-gray-200 dark:border-gray-800">
+            <span class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                DevHub Manager
+            </span>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-6 px-3 space-y-1">
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                href="#">
+                <span class="material-icons-round text-xl">dashboard</span>
+                Visão Geral
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                href="#">
+                <span class="material-icons-round text-xl">folder_open</span>
+                Gerenciar Projetos
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-primary/10 text-primary dark:text-primary dark:bg-primary/10"
+                href="#">
+                <span class="material-icons-round text-xl">view_kanban</span>
+                Kanban Board
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                href="#">
+                <span class="material-icons-round text-xl">code</span>
+                Repositório de Código
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                href="#">
+                <span class="material-icons-round text-xl">people</span>
+                Gerenciar Equipe
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                href="#">
+                <span class="material-icons-round text-xl">sticky_note_2</span>
+                Gerenciar Anotações
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                href="#">
+                <span class="material-icons-round text-xl">settings</span>
+                Configurações
+            </a>
+        </nav>
+        <div class="px-3 pb-2">
+            <button
+                class="flex items-center gap-3 w-full px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                onclick="toggleTheme()">
+                <span class="material-icons-round text-xl">brightness_medium</span>
+                Switch Theme
+            </button>
+        </div>
+        <div class="p-4 border-t border-gray-200 dark:border-gray-800">
+            <div class="flex items-center gap-3">
+                <img alt="User Avatar" class="h-9 w-9 rounded-full bg-gray-300"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsI7VyCYjhB-vF3zrzR8hekjvjo93bK9NYugrkHi7i9Ad4vAWl3VIiY4IPeMrD7uCE76XIYFGhpNLLlQ2sh4Q4cMT9wuHZk9pgShHauin5-Fbhe5uEPSIOnkM6Ce89DRQPfljYyNITJfRPYNIQWAmTIEiXq4v_WCUF_UbOf9SdlCSDgmMK-Lif95sCGW0vG6UQDtKgrEQJ6iI-86sCBufT-mdsrYS7lcKa16P0kQhWKYav0Yt9Pvzigu0v6NU6-QORmkXaOBBq6PNe" />
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 dark:text-white truncate">
+                        Alex Developer
+                    </p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 truncate">
+                        alex@devhubmanager.com
+                    </p>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <main class="flex-1 ml-64 p-8 overflow-y-auto min-h-screen bg-background-light dark:bg-background-dark">
+        <header class="flex justify-between items-start mb-8">
+            <div class="flex-1">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="text-sm font-medium text-text-secondary">Projects</span>
+                    <span class="text-text-secondary">/</span>
+                    <select
+                        class="bg-transparent text-sm font-medium text-text-secondary border-none focus:ring-0 p-0 cursor-pointer hover:text-primary transition-colors">
+                        <option>SaaS Platform</option>
+                        <option>Mobile App</option>
+                        <option>Internal Tools</option>
+                    </select>
+                </div>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white">E-Commerce Intelligence Dashboard</h1>
+                <p class="mt-2 text-text-secondary">Track progress, manage tasks, and collaborate with your team.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="flex -space-x-2 mr-2">
+                    <img alt="Member" class="w-8 h-8 rounded-full border-2 border-white dark:border-background-dark"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDleOd94ecfAvrGq4tbeUXbaMr3V-Phv_IydeP-XeF9_RuuXXM8Zb9p67_36F7vli5QiLUk6HjeTzEFDew0nzZPwWZfQYuegCFtPkhE8A4qC7K-cjNGYz80JYsIDI7GdMbDiBWO6ChhTsYb3FvNv3k09xocXl73Frxe-zTTtM7IdmPvlKYhWFd6oKBPyFn1r3r2AFFaeeiRDnYmvWxZVv65VMZZtCjjiT4NIQOaofCXEDV_eyl_Oehesm7LIWa8KVWPnTgDlwbmxy5q"
+                        title="Sarah Connor" />
+                    <img alt="Member" class="w-8 h-8 rounded-full border-2 border-white dark:border-background-dark"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsI7VyCYjhB-vF3zrzR8hekjvjo93bK9NYugrkHi7i9Ad4vAWl3VIiY4IPeMrD7uCE76XIYFGhpNLLlQ2sh4Q4cMT9wuHZk9pgShHauin5-Fbhe5uEPSIOnkM6Ce89DRQPfljYyNITJfRPYNIQWAmTIEiXq4v_WCUF_UbOf9SdlCSDgmMK-Lif95sCGW0vG6UQDtKgrEQJ6iI-86sCBufT-mdsrYS7lcKa16P0kQhWKYav0Yt9Pvzigu0v6NU6-QORmkXaOBBq6PNe"
+                        title="Alex Developer" />
+                    <div
+                        class="w-8 h-8 rounded-full border-2 border-white dark:border-background-dark bg-gray-200 dark:bg-surface-darker flex items-center justify-center text-xs font-medium text-gray-600 dark:text-gray-400">
+                        +3
+                    </div>
+                </div>
+                <button
+                    class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-surface-dark border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm">
+                    <span class="material-icons-round text-sm">filter_list</span>
+                    Filter
+                </button>
+                <button
+                    class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-hover transition-colors shadow-lg shadow-blue-500/30">
+                    <span class="material-icons-round text-sm">add</span>
+                    New Task
+                </button>
+            </div>
+        </header>
+        <div class="flex gap-6 h-[calc(100vh-12rem)] overflow-x-auto pb-4 items-start">
+            <div
+                class="w-80 flex-shrink-0 flex flex-col h-full bg-gray-100 dark:bg-[#0d213a] rounded-xl p-3 border border-gray-200 dark:border-[#1e3450]">
+                <div class="flex items-center justify-between mb-4 px-1">
+                    <h3 class="font-semibold text-gray-700 dark:text-gray-200 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-gray-400"></span>
+                        Backlog
+                        <span
+                            class="ml-1 px-2 py-0.5 rounded-full text-xs bg-gray-200 dark:bg-gray-800 text-gray-600 dark:text-gray-400">4</span>
+                    </h3>
+                    <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                        <span class="material-icons-round text-lg">more_horiz</span>
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto space-y-3 pr-1 custom-scrollbar">
+                    <div
+                        class="bg-white dark:bg-surface-dark p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary/50 transition-colors group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span
+                                class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">Frontend</span>
+                            <span
+                                class="material-icons-round text-gray-400 text-base opacity-0 group-hover:opacity-100">edit</span>
+                        </div>
+                        <h4 class="text-sm font-medium text-gray-800 dark:text-gray-100 mb-3">Refactor authentication
+                            flow for social logins</h4>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mb-3">
+                            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <div
+                            class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 text-gray-400 text-xs">
+                                <div class="flex items-center gap-1">
+                                    <span class="material-icons-round text-sm">chat_bubble_outline</span> 2
+                                </div>
+                                <div class="flex items-center gap-1 text-gray-500 dark:text-gray-400">
+                                    <span class="material-icons-round text-sm text-yellow-500">flag</span> Med
+                                </div>
+                            </div>
+                            <div class="flex -space-x-2">
+                                <img alt="Assigned to Alex"
+                                    class="w-6 h-6 rounded-full border border-white dark:border-surface-dark ring-2 ring-transparent group-hover:ring-primary/20 transition-all"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDleOd94ecfAvrGq4tbeUXbaMr3V-Phv_IydeP-XeF9_RuuXXM8Zb9p67_36F7vli5QiLUk6HjeTzEFDew0nzZPwWZfQYuegCFtPkhE8A4qC7K-cjNGYz80JYsIDI7GdMbDiBWO6ChhTsYb3FvNv3k09xocXl73Frxe-zTTtM7IdmPvlKYhWFd6oKBPyFn1r3r2AFFaeeiRDnYmvWxZVv65VMZZtCjjiT4NIQOaofCXEDV_eyl_Oehesm7LIWa8KVWPnTgDlwbmxy5q"
+                                    title="Assigned to Alex" />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-surface-dark p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary/50 transition-colors group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span
+                                class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300">Design</span>
+                            <span
+                                class="material-icons-round text-gray-400 text-base opacity-0 group-hover:opacity-100">edit</span>
+                        </div>
+                        <h4 class="text-sm font-medium text-gray-800 dark:text-gray-100 mb-3">Create new icon set for
+                            dashboard sidebar</h4>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mb-3">
+                            <div class="bg-purple-500 h-1.5 rounded-full" style="width: 20%"></div>
+                        </div>
+                        <div
+                            class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 text-gray-400 text-xs">
+                                <div class="flex items-center gap-1">
+                                    <span class="material-icons-round text-sm">attach_file</span> 4
+                                </div>
+                                <div class="flex items-center gap-1 text-gray-500 dark:text-gray-400">
+                                    <span class="material-icons-round text-sm text-green-500">flag</span> Low
+                                </div>
+                            </div>
+                            <div class="flex -space-x-2">
+                                <div
+                                    class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center text-[9px] font-bold border border-white dark:border-surface-dark ring-2 ring-transparent group-hover:ring-indigo-500/30">
+                                    JD</div>
+                                <img alt="Assigned to Sarah"
+                                    class="w-6 h-6 rounded-full border border-white dark:border-surface-dark ring-2 ring-transparent group-hover:ring-primary/20 transition-all"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDleOd94ecfAvrGq4tbeUXbaMr3V-Phv_IydeP-XeF9_RuuXXM8Zb9p67_36F7vli5QiLUk6HjeTzEFDew0nzZPwWZfQYuegCFtPkhE8A4qC7K-cjNGYz80JYsIDI7GdMbDiBWO6ChhTsYb3FvNv3k09xocXl73Frxe-zTTtM7IdmPvlKYhWFd6oKBPyFn1r3r2AFFaeeiRDnYmvWxZVv65VMZZtCjjiT4NIQOaofCXEDV_eyl_Oehesm7LIWa8KVWPnTgDlwbmxy5q"
+                                    title="Assigned to Sarah" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    class="mt-3 w-full py-2 flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors border border-transparent hover:border-gray-300 dark:hover:border-gray-700 border-dashed">
+                    <span class="material-icons-round text-lg">add</span> Add Task
+                </button>
+            </div>
+            <div
+                class="w-80 flex-shrink-0 flex flex-col h-full bg-gray-100 dark:bg-[#0d213a] rounded-xl p-3 border border-gray-200 dark:border-[#1e3450]">
+                <div class="flex items-center justify-between mb-4 px-1">
+                    <h3 class="font-semibold text-gray-700 dark:text-gray-200 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+                        In Progress
+                        <span
+                            class="ml-1 px-2 py-0.5 rounded-full text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">3</span>
+                    </h3>
+                    <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                        <span class="material-icons-round text-lg">more_horiz</span>
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto space-y-3 pr-1 custom-scrollbar">
+                    <div
+                        class="bg-white dark:bg-surface-dark p-4 rounded-lg shadow-sm border border-l-4 border-gray-200 dark:border-gray-700 border-l-blue-500 cursor-pointer hover:shadow-md transition-all group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span
+                                class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300">Backend</span>
+                            <span
+                                class="material-icons-round text-gray-400 text-base opacity-0 group-hover:opacity-100">edit</span>
+                        </div>
+                        <h4 class="text-sm font-medium text-gray-800 dark:text-gray-100 mb-3">Integrate Stripe payment
+                            gateway webhooks</h4>
+                        <div class="flex items-center justify-between text-xs text-gray-500 mb-2">
+                            <span>Progress</span>
+                            <span class="font-semibold">65%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mb-3">
+                            <div class="bg-blue-500 h-1.5 rounded-full" style="width: 65%"></div>
+                        </div>
+                        <div
+                            class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 text-gray-400 text-xs">
+                                <div class="flex items-center gap-1">
+                                    <span class="material-icons-round text-sm">schedule</span> 2d left
+                                </div>
+                                <div class="flex items-center gap-1 text-red-500 font-medium">
+                                    <span class="material-icons-round text-sm">flag</span> High
+                                </div>
+                            </div>
+                            <div class="flex -space-x-2">
+                                <img alt="Assigned Member"
+                                    class="w-6 h-6 rounded-full border border-white dark:border-surface-dark ring-2 ring-transparent group-hover:ring-primary/20 transition-all"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsI7VyCYjhB-vF3zrzR8hekjvjo93bK9NYugrkHi7i9Ad4vAWl3VIiY4IPeMrD7uCE76XIYFGhpNLLlQ2sh4Q4cMT9wuHZk9pgShHauin5-Fbhe5uEPSIOnkM6Ce89DRQPfljYyNITJfRPYNIQWAmTIEiXq4v_WCUF_UbOf9SdlCSDgmMK-Lif95sCGW0vG6UQDtKgrEQJ6iI-86sCBufT-mdsrYS7lcKa16P0kQhWKYav0Yt9Pvzigu0v6NU6-QORmkXaOBBq6PNe" />
+                                <img alt="Assigned Member"
+                                    class="w-6 h-6 rounded-full border border-white dark:border-surface-dark ring-2 ring-transparent group-hover:ring-primary/20 transition-all"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOkRCXRAryxWY6TNzckszDJs7XTPIN71TQIwHY-2RWcfI8H6opEMa4gW05KvI_gNNHAc3zVfQgK01MdvzEBOKNNwxScGXmgj1xfKDmCZgYvQ9AeYIf3e2qt5miCzAuw3vCJvTRTIRhN_66D8V-SBNkYCbQeMgbmUpZhbf-BZLeW0PgmQmXW2sN2hIw-MJo4v8DwY7V2ksp-FwJiq-rUhOrjodIj-Psa3VlqNcFtOjDrkeRJcJyE8x5FZUCeQlxzOpgs6IMaOE25wyk" />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-surface-dark p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary/50 transition-colors group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span
+                                class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300">API</span>
+                            <span
+                                class="material-icons-round text-gray-400 text-base opacity-0 group-hover:opacity-100">edit</span>
+                        </div>
+                        <h4 class="text-sm font-medium text-gray-800 dark:text-gray-100 mb-3">Optimize database queries
+                            for sales reports</h4>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mb-3">
+                            <div class="bg-teal-500 h-1.5 rounded-full" style="width: 40%"></div>
+                        </div>
+                        <div
+                            class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 text-gray-400 text-xs">
+                                <div class="flex items-center gap-1 text-gray-500 dark:text-gray-400">
+                                    <span class="material-icons-round text-sm text-yellow-500">flag</span> Med
+                                </div>
+                            </div>
+                            <div class="flex -space-x-2">
+                                <img alt="Assigned Member"
+                                    class="w-6 h-6 rounded-full border border-white dark:border-surface-dark ring-2 ring-transparent group-hover:ring-primary/20 transition-all"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdIj1eg78JlheDQ3BRGyCwPWZk56lfmocNUEFDRHJEPKvmxQ0GqPqmnRtWyFsrh6iELRFp5t1-I_wqdEo9N6blI2QfUUpbjBX3sQGVZ3v94QS9oAEq_0Hrr-0iLJFRQqEqS5sE3Kk-ODZHJEZZwvfg5aIudwVYyB8xUj7Y5UmWsynCcA4fjiZt_5V61pRy0YYmCGSymOPw44Aqr1qdHUzPRws565I6xrDxwsABTvuJqYxcSxbYEa5dmltE82au3o3JZSOeyfN8_q9-" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    class="mt-3 w-full py-2 flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors border border-transparent hover:border-gray-300 dark:hover:border-gray-700 border-dashed">
+                    <span class="material-icons-round text-lg">add</span> Add Task
+                </button>
+            </div>
+            <div
+                class="w-80 flex-shrink-0 flex flex-col h-full bg-gray-100 dark:bg-[#0d213a] rounded-xl p-3 border border-gray-200 dark:border-[#1e3450]">
+                <div class="flex items-center justify-between mb-4 px-1">
+                    <h3 class="font-semibold text-gray-700 dark:text-gray-200 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+                        Review
+                        <span
+                            class="ml-1 px-2 py-0.5 rounded-full text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300">2</span>
+                    </h3>
+                    <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                        <span class="material-icons-round text-lg">more_horiz</span>
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto space-y-3 pr-1 custom-scrollbar">
+                    <div
+                        class="bg-white dark:bg-surface-dark p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 cursor-pointer hover:border-primary/50 transition-colors group">
+                        <div class="flex justify-between items-start mb-2">
+                            <span
+                                class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">Frontend</span>
+                            <span
+                                class="material-icons-round text-gray-400 text-base opacity-0 group-hover:opacity-100">edit</span>
+                        </div>
+                        <h4 class="text-sm font-medium text-gray-800 dark:text-gray-100 mb-3">Mobile responsive layout
+                            for inventory page</h4>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mb-3">
+                            <div class="bg-purple-500 h-1.5 rounded-full" style="width: 90%"></div>
+                        </div>
+                        <div
+                            class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 text-gray-400 text-xs">
+                                <div class="flex items-center gap-1">
+                                    <span class="material-icons-round text-sm">chat_bubble_outline</span> 5
+                                </div>
+                                <div class="flex items-center gap-1 text-red-500 font-medium">
+                                    <span class="material-icons-round text-sm">flag</span> High
+                                </div>
+                            </div>
+                            <div class="flex -space-x-2">
+                                <img alt="Assigned Member"
+                                    class="w-6 h-6 rounded-full border border-white dark:border-surface-dark ring-2 ring-transparent group-hover:ring-primary/20 transition-all"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsI7VyCYjhB-vF3zrzR8hekjvjo93bK9NYugrkHi7i9Ad4vAWl3VIiY4IPeMrD7uCE76XIYFGhpNLLlQ2sh4Q4cMT9wuHZk9pgShHauin5-Fbhe5uEPSIOnkM6Ce89DRQPfljYyNITJfRPYNIQWAmTIEiXq4v_WCUF_UbOf9SdlCSDgmMK-Lif95sCGW0vG6UQDtKgrEQJ6iI-86sCBufT-mdsrYS7lcKa16P0kQhWKYav0Yt9Pvzigu0v6NU6-QORmkXaOBBq6PNe" />
+                                <div
+                                    class="w-6 h-6 rounded-full bg-pink-500 text-white flex items-center justify-center text-[9px] font-bold border border-white dark:border-surface-dark ring-2 ring-transparent group-hover:ring-pink-500/30">
+                                    MK</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button
+                    class="mt-3 w-full py-2 flex items-center justify-center gap-2 text-sm text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800 rounded-lg transition-colors border border-transparent hover:border-gray-300 dark:hover:border-gray-700 border-dashed">
+                    <span class="material-icons-round text-lg">add</span> Add Task
+                </button>
+            </div>
+            <div
+                class="w-80 flex-shrink-0 flex flex-col h-full bg-gray-100 dark:bg-[#0d213a] rounded-xl p-3 border border-gray-200 dark:border-[#1e3450]">
+                <div class="flex items-center justify-between mb-4 px-1">
+                    <h3 class="font-semibold text-gray-700 dark:text-gray-200 flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-green-500"></span>
+                        Done
+                        <span
+                            class="ml-1 px-2 py-0.5 rounded-full text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300">12</span>
+                    </h3>
+                    <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                        <span class="material-icons-round text-lg">more_horiz</span>
+                    </button>
+                </div>
+                <div class="flex-1 overflow-y-auto space-y-3 pr-1 custom-scrollbar">
+                    <div
+                        class="bg-white dark:bg-surface-dark p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 opacity-75 hover:opacity-100 transition-opacity">
+                        <div class="flex justify-between items-start mb-2">
+                            <span
+                                class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">Setup</span>
+                            <span class="material-icons-round text-green-500 text-base">check_circle</span>
+                        </div>
+                        <h4
+                            class="text-sm font-medium text-gray-800 dark:text-gray-100 line-through text-gray-500 dark:text-gray-500 mb-3">
+                            Initial Supabase project configuration</h4>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mb-3">
+                            <div class="bg-green-500 h-1.5 rounded-full" style="width: 100%"></div>
+                        </div>
+                        <div
+                            class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 text-gray-400 text-xs">
+                                <span class="text-[10px]">Oct 22</span>
+                            </div>
+                            <div class="flex -space-x-2">
+                                <img alt="Assigned Member"
+                                    class="w-6 h-6 rounded-full border border-white dark:border-surface-dark grayscale"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsI7VyCYjhB-vF3zrzR8hekjvjo93bK9NYugrkHi7i9Ad4vAWl3VIiY4IPeMrD7uCE76XIYFGhpNLLlQ2sh4Q4cMT9wuHZk9pgShHauin5-Fbhe5uEPSIOnkM6Ce89DRQPfljYyNITJfRPYNIQWAmTIEiXq4v_WCUF_UbOf9SdlCSDgmMK-Lif95sCGW0vG6UQDtKgrEQJ6iI-86sCBufT-mdsrYS7lcKa16P0kQhWKYav0Yt9Pvzigu0v6NU6-QORmkXaOBBq6PNe" />
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-surface-dark p-4 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 opacity-75 hover:opacity-100 transition-opacity">
+                        <div class="flex justify-between items-start mb-2">
+                            <span
+                                class="px-2 py-0.5 rounded text-[10px] font-bold uppercase bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300">DevOps</span>
+                            <span class="material-icons-round text-green-500 text-base">check_circle</span>
+                        </div>
+                        <h4
+                            class="text-sm font-medium text-gray-800 dark:text-gray-100 line-through text-gray-500 dark:text-gray-500 mb-3">
+                            Configure Docker container for local dev</h4>
+                        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1.5 mb-3">
+                            <div class="bg-green-500 h-1.5 rounded-full" style="width: 100%"></div>
+                        </div>
+                        <div
+                            class="flex items-center justify-between mt-3 pt-2 border-t border-gray-100 dark:border-gray-700/50">
+                            <div class="flex items-center gap-3 text-gray-400 text-xs">
+                                <span class="text-[10px]">Oct 20</span>
+                            </div>
+                            <div class="flex -space-x-2">
+                                <img alt="Assigned Member"
+                                    class="w-6 h-6 rounded-full border border-white dark:border-surface-dark grayscale"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOkRCXRAryxWY6TNzckszDJs7XTPIN71TQIwHY-2RWcfI8H6opEMa4gW05KvI_gNNHAc3zVfQgK01MdvzEBOKNNwxScGXmgj1xfKDmCZgYvQ9AeYIf3e2qt5miCzAuw3vCJvTRTIRhN_66D8V-SBNkYCbQeMgbmUpZhbf-BZLeW0PgmQmXW2sN2hIw-MJo4v8DwY7V2ksp-FwJiq-rUhOrjodIj-Psa3VlqNcFtOjDrkeRJcJyE8x5FZUCeQlxzOpgs6IMaOE25wyk" />
+                                <div
+                                    class="w-6 h-6 rounded-full bg-gray-500 text-white flex items-center justify-center text-[9px] font-bold border border-white dark:border-surface-dark grayscale">
+                                    AD</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        const toggleTheme = () => {
+            document.documentElement.classList.toggle('dark');
+        };
+    </script>
+</body>
+
+</html>

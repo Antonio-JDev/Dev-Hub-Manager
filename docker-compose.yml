@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgres:16
+    container_name: devhub_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: devhub_manager
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      - devhub_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d devhub_manager"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: devhub_api
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    command: npm run start:dev
+    volumes:
+      - ./backend:/usr/src/app
+      - /usr/src/app/node_modules
+    working_dir: /usr/src/app
+
+volumes:
+  devhub_pgdata:
+

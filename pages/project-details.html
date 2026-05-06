@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Project Details - DevHub Manager</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3B82F6", // Vivid blue
+                        "primary-hover": "#2563EB",
+                        "background-light": "#F3F4F6",
+                        "background-dark": "#0B1120", // Deep Navy
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#151e32", // Card Navy
+                        "surface-darker": "#0f1624", // Sidebar Navy
+                        "accent-teal": "#10B981",
+                        "accent-purple": "#8B5CF6",
+                        "accent-orange": "#F59E0B",
+                        "text-secondary": "#94A3B8", // Slate 400
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-gray-800 dark:text-gray-100 font-sans antialiased min-h-screen flex dark">
+    <aside
+        class="w-64 bg-white dark:bg-surface-darker border-r border-gray-200 dark:border-gray-800 flex flex-col fixed h-full z-20 transition-all duration-300">
+        <div class="h-16 flex items-center px-6 border-b border-gray-200 dark:border-gray-800">
+            <span class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+                DevHub <span class="text-primary">Manager</span>
+            </span>
+        </div>
+        <div class="px-4 py-4">
+            <button
+                class="w-full flex items-center justify-between px-3 py-2 text-sm font-medium bg-gray-100 dark:bg-surface-dark border border-gray-200 dark:border-gray-700 rounded-lg text-gray-900 dark:text-white hover:border-primary transition-colors group">
+                <div class="flex items-center gap-2 truncate">
+                    <div
+                        class="w-6 h-6 rounded bg-primary flex items-center justify-center text-white text-xs font-bold">
+                        E</div>
+                    <span class="truncate">E-Commerce Dash...</span>
+                </div>
+                <span class="material-icons-round text-gray-400 group-hover:text-primary">unfold_more</span>
+            </button>
+        </div>
+        <nav class="flex-1 overflow-y-auto px-3 space-y-1">
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                href="#">
+                <span class="material-icons-round text-xl">dashboard</span>
+                Dashboard
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg bg-primary/10 text-primary dark:text-primary"
+                href="#">
+                <span class="material-icons-round text-xl">folder_open</span>
+                Project Details
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                href="#">
+                <span class="material-icons-round text-xl">view_kanban</span>
+                Kanban Board
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                href="#">
+                <span class="material-icons-round text-xl">code</span>
+                Code Repository
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                href="#">
+                <span class="material-icons-round text-xl">people</span>
+                Team
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                href="#">
+                <span class="material-icons-round text-xl">settings</span>
+                Settings
+            </a>
+        </nav>
+        <div class="px-3 pb-2">
+            <button
+                class="flex items-center gap-3 w-full px-3 py-2 text-sm font-medium rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white transition-colors"
+                onclick="toggleTheme()">
+                <span class="material-icons-round text-xl">brightness_medium</span>
+                Switch Theme
+            </button>
+        </div>
+        <div class="p-4 border-t border-gray-200 dark:border-gray-800">
+            <div class="flex items-center gap-3">
+                <img alt="User Avatar" class="h-9 w-9 rounded-full bg-gray-300 object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsI7VyCYjhB-vF3zrzR8hekjvjo93bK9NYugrkHi7i9Ad4vAWl3VIiY4IPeMrD7uCE76XIYFGhpNLLlQ2sh4Q4cMT9wuHZk9pgShHauin5-Fbhe5uEPSIOnkM6Ce89DRQPfljYyNITJfRPYNIQWAmTIEiXq4v_WCUF_UbOf9SdlCSDgmMK-Lif95sCGW0vG6UQDtKgrEQJ6iI-86sCBufT-mdsrYS7lcKa16P0kQhWKYav0Yt9Pvzigu0v6NU6-QORmkXaOBBq6PNe" />
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-medium text-gray-900 dark:text-white truncate">Alex Developer</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 truncate">alex@devhubmanager.com</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+    <main class="flex-1 ml-64 p-8 overflow-y-auto h-screen bg-background-light dark:bg-background-dark">
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+            <div>
+                <nav class="flex items-center text-sm text-text-secondary mb-1">
+                    <span class="hover:text-primary transition-colors cursor-pointer">Projects</span>
+                    <span class="mx-2">/</span>
+                    <span class="text-primary font-medium">Single View</span>
+                </nav>
+                <h1 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">E-Commerce Intelligence
+                    Dashboard</h1>
+                <p class="mt-1 text-text-secondary text-sm">Project ID: <span
+                        class="font-mono text-gray-400">PRJ-2024-082</span> • Last updated 2 hours ago</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button
+                    class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-surface-dark border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-all shadow-sm">
+                    <span class="material-icons-round text-sm">person_add</span>
+                    Invite
+                </button>
+                <button
+                    class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-hover transition-all shadow-lg shadow-blue-500/20">
+                    <span class="material-icons-round text-sm">edit</span>
+                    Edit Details
+                </button>
+            </div>
+        </header>
+        <div class="grid grid-cols-12 gap-6">
+            <div
+                class="col-span-12 lg:col-span-4 bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700/50 p-6 shadow-sm flex flex-col justify-between">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                        <span class="material-icons-round text-accent-purple">business</span>
+                        Client Information
+                    </h3>
+                    <span
+                        class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-500/10 dark:text-green-400 border border-green-200 dark:border-green-500/20">
+                        Active Contract
+                    </span>
+                </div>
+                <div class="space-y-4">
+                    <div
+                        class="p-4 bg-gray-50 dark:bg-surface-darker rounded-lg border border-gray-100 dark:border-gray-700/50">
+                        <p class="text-xs font-medium text-text-secondary uppercase tracking-wider mb-1">Client Name</p>
+                        <p class="text-lg font-bold text-gray-900 dark:text-white">Nebula Retail Group Ltd.</p>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-xs font-medium text-text-secondary uppercase tracking-wider mb-1">Tech Lead
+                            </p>
+                            <div class="flex items-center gap-2">
+                                <img alt="Contact" class="w-6 h-6 rounded-full border dark:border-gray-600"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDleOd94ecfAvrGq4tbeUXbaMr3V-Phv_IydeP-XeF9_RuuXXM8Zb9p67_36F7vli5QiLUk6HjeTzEFDew0nzZPwWZfQYuegCFtPkhE8A4qC7K-cjNGYz80JYsIDI7GdMbDiBWO6ChhTsYb3FvNv3k09xocXl73Frxe-zTTtM7IdmPvlKYhWFd6oKBPyFn1r3r2AFFaeeiRDnYmvWxZVv65VMZZtCjjiT4NIQOaofCXEDV_eyl_Oehesm7LIWa8KVWPnTgDlwbmxy5q" />
+                                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Sarah C.</span>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-xs font-medium text-text-secondary uppercase tracking-wider mb-1">Timeline
+                            </p>
+                            <p class="text-sm font-mono text-gray-700 dark:text-gray-300">Q4 2023 - Q1 2024</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col-span-12 lg:col-span-8 bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700/50 p-6 shadow-sm">
+                <h3 class="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
+                    <span class="material-icons-round text-accent-orange">lightbulb</span>
+                    Project Intent &amp; Strategic Goals
+                </h3>
+                <div
+                    class="bg-gray-50 dark:bg-surface-darker p-5 rounded-lg border border-gray-100 dark:border-gray-700/50">
+                    <p class="text-sm text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        The core objective is to engineer a centralized intelligence dashboard aggregating real-time
+                        sales data from <span class="font-medium text-gray-900 dark:text-white">Shopify, WooCommerce,
+                            and Amazon</span>. The system aims to provide actionable predictive analytics for inventory
+                        replenishment, directly impacting the bottom line.
+                    </p>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div
+                            class="p-3 bg-white dark:bg-surface-dark rounded border border-gray-200 dark:border-gray-700/50 shadow-sm">
+                            <div class="text-primary font-bold text-lg mb-1">15%</div>
+                            <div class="text-xs text-text-secondary">Reduction in inventory overstock via AI models.
+                            </div>
+                        </div>
+                        <div
+                            class="p-3 bg-white dark:bg-surface-dark rounded border border-gray-200 dark:border-gray-700/50 shadow-sm">
+                            <div class="text-primary font-bold text-lg mb-1">10h+</div>
+                            <div class="text-xs text-text-secondary">Weekly saved hours in manual data entry.</div>
+                        </div>
+                        <div
+                            class="p-3 bg-white dark:bg-surface-dark rounded border border-gray-200 dark:border-gray-700/50 shadow-sm">
+                            <div class="text-primary font-bold text-lg mb-1">RBAC</div>
+                            <div class="text-xs text-text-secondary">Secure role-based access for 3 tiers of managers.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col-span-12 bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700/50 p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                        <span class="material-icons-round text-primary">layers</span>
+                        Technology Stack
+                    </h3>
+                    <button class="text-xs text-primary hover:text-primary-hover font-medium">View Dependencies</button>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                    <div
+                        class="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-surface-darker border border-gray-200 dark:border-gray-800 hover:border-primary/50 hover:bg-white dark:hover:bg-surface-dark transition-all duration-200 group cursor-default">
+                        <div
+                            class="w-12 h-12 mb-3 rounded-lg bg-white dark:bg-gray-800 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <img alt="Next.js" class="w-7 h-7 dark:invert"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwb6-iLNwf9nEAW0-6EX4ZpWWVnVBBc-vW1nCG9qIZp2VsXW9lZf62B_0Q4ukNthubnegqmdcIUD1EKhcGAkb8iejo9UWemS3WvXxA6ZdT358jlXPO3F6nDsOv6hvHJUQgaoFCj_xV-GHXTS5O77UGpXS-MSXnJgvQuMK1MXnBoqPdA4ZBNLjc16K9FfF1NaUO3eQBefnc1zk0j6hsduzMvVNVcYll2gdnKxK69koTAsZL6qDPcXoiibGyCnN2q1ufANEyf8fafNrY" />
+                        </div>
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">Next.js 14</span>
+                        <span class="text-xs text-text-secondary mt-1">App Router</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-surface-darker border border-gray-200 dark:border-gray-800 hover:border-primary/50 hover:bg-white dark:hover:bg-surface-dark transition-all duration-200 group cursor-default">
+                        <div
+                            class="w-12 h-12 mb-3 rounded-lg bg-white dark:bg-gray-800 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <img alt="TypeScript" class="w-7 h-7"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBTZAVdddh08k36Xaz3IMRZqjuMfiRAjRS0mwc1nx6Bv2O1SOHTlwIE3kn6024OCM91w4GWH9NVqzrpY114n5SPMIa64NZD3iMneExI17NPHdqfRXci9lNbTCikRFZ-jO0bxXMBjkRkp7Pr9eOgXbx13HmcRtJFCQTZ8XbiNAMxWQL7wokG8P5SonfbTtW-7XDSFDbw2r6fGTsiRQN94qf4Ku2cDXup5RwEzz4edE8s5IHUKusiph6lzuaSx7Ts6maQ_sNRNtmIHp9" />
+                        </div>
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">TypeScript</span>
+                        <span class="text-xs text-text-secondary mt-1">Strict Mode</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-surface-darker border border-gray-200 dark:border-gray-800 hover:border-primary/50 hover:bg-white dark:hover:bg-surface-dark transition-all duration-200 group cursor-default">
+                        <div
+                            class="w-12 h-12 mb-3 rounded-lg bg-white dark:bg-gray-800 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <img alt="Tailwind" class="w-7 h-7"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDLHOKQsJAgbx3SXGWtgO4eDCNZ3jPlAl8U2hBSS98wCmIA-fPJk57uO_IJjkyALqPkOcN-U4IbrDZXC6lHoxMASCJy6zfRJao3C1VWDeVPf5JYxARwFR0i6KMiWGbLlnDrhuPOSMSJAuHgsL9BIVFPAHVVQLimYiv7QHezkRd_u1ViAUS514vY2Oc3qeo66z6USUu5t8GbFukKlEuBSDw_l699oj3NuXnp3fkYGVOoXFE_zBjgb6VdfCjS80us3AfUFpsffin8EaW" />
+                        </div>
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">Tailwind</span>
+                        <span class="text-xs text-text-secondary mt-1">v3.4</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-surface-darker border border-gray-200 dark:border-gray-800 hover:border-primary/50 hover:bg-white dark:hover:bg-surface-dark transition-all duration-200 group cursor-default">
+                        <div
+                            class="w-12 h-12 mb-3 rounded-lg bg-white dark:bg-gray-800 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <img alt="Supabase" class="w-7 h-7"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdIj1eg78JlheDQ3BRGyCwPWZk56lfmocNUEFDRHJEPKvmxQ0GqPqmnRtWyFsrh6iELRFp5t1-I_wqdEo9N6blI2QfUUpbjBX3sQGVZ3v94QS9oAEq_0Hrr-0iLJFRQqEqS5sE3Kk-ODZHJEZZwvfg5aIudwVYyB8xUj7Y5UmWsynCcA4fjiZt_5V61pRy0YYmCGSymOPw44Aqr1qdHUzPRws565I6xrDxwsABTvuJqYxcSxbYEa5dmltE82au3o3JZSOeyfN8_q9-" />
+                        </div>
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">Supabase</span>
+                        <span class="text-xs text-text-secondary mt-1">PostgreSQL</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-surface-darker border border-gray-200 dark:border-gray-800 hover:border-primary/50 hover:bg-white dark:hover:bg-surface-dark transition-all duration-200 group cursor-default">
+                        <div
+                            class="w-12 h-12 mb-3 rounded-lg bg-white dark:bg-gray-800 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <span class="material-icons-round text-blue-500 text-3xl">webhook</span>
+                        </div>
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">Stripe</span>
+                        <span class="text-xs text-text-secondary mt-1">Connect API</span>
+                    </div>
+                    <div
+                        class="flex flex-col items-center justify-center p-4 rounded-xl bg-gray-50 dark:bg-surface-darker border border-gray-200 dark:border-gray-800 hover:border-primary/50 hover:bg-white dark:hover:bg-surface-dark transition-all duration-200 group cursor-default">
+                        <div
+                            class="w-12 h-12 mb-3 rounded-lg bg-white dark:bg-gray-800 flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform">
+                            <img alt="Docker" class="w-7 h-7"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOkRCXRAryxWY6TNzckszDJs7XTPIN71TQIwHY-2RWcfI8H6opEMa4gW05KvI_gNNHAc3zVfQgK01MdvzEBOKNNwxScGXmgj1xfKDmCZgYvQ9AeYIf3e2qt5miCzAuw3vCJvTRTIRhN_66D8V-SBNkYCbQeMgbmUpZhbf-BZLeW0PgmQmXW2sN2hIw-MJo4v8DwY7V2ksp-FwJiq-rUhOrjodIj-Psa3VlqNcFtOjDrkeRJcJyE8x5FZUCeQlxzOpgs6IMaOE25wyk" />
+                        </div>
+                        <span class="text-sm font-semibold text-gray-900 dark:text-white">Docker</span>
+                        <span class="text-xs text-text-secondary mt-1">Dev Env</span>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col-span-12 lg:col-span-7 bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700/50 p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-5">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                        <span class="material-icons-round text-accent-teal">description</span>
+                        Product Requirements (PRD)
+                    </h3>
+                    <button
+                        class="text-xs font-medium text-primary hover:text-primary-hover flex items-center gap-1 px-2 py-1 rounded hover:bg-primary/10 transition-colors">
+                        Full Document <span class="material-icons-round text-sm">open_in_new</span>
+                    </button>
+                </div>
+                <div class="space-y-3">
+                    <div
+                        class="group flex items-start gap-4 p-4 rounded-lg bg-gray-50 dark:bg-surface-darker border border-gray-200 dark:border-gray-800/60 hover:border-primary/30 transition-colors">
+                        <div class="mt-0.5 flex-shrink-0">
+                            <span
+                                class="flex items-center justify-center w-6 h-6 rounded-full bg-green-100 dark:bg-green-500/10 text-green-600 dark:text-green-400 border border-green-200 dark:border-green-500/20">
+                                <span class="material-icons-round text-xs font-bold">check</span>
+                            </span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-sm font-semibold text-gray-900 dark:text-gray-200">User Authentication
+                                    Flow</h4>
+                                <span
+                                    class="text-[10px] font-mono text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700 rounded px-1.5 py-0.5">REQ-001</span>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
+                                Support Email/Password, Google OAuth, and Magic Links. Must be implemented via Supabase
+                                Auth helpers.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="group flex items-start gap-4 p-4 rounded-lg bg-gray-50 dark:bg-surface-darker border border-gray-200 dark:border-gray-800/60 hover:border-primary/30 transition-colors">
+                        <div class="mt-0.5 flex-shrink-0">
+                            <span
+                                class="flex items-center justify-center w-6 h-6 rounded-full bg-yellow-100 dark:bg-yellow-500/10 text-yellow-700 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-500/20">
+                                <span class="material-icons-round text-xs font-bold">hourglass_top</span>
+                            </span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-sm font-semibold text-gray-900 dark:text-gray-200">Data Visualization
+                                    Component</h4>
+                                <span
+                                    class="text-[10px] font-mono text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700 rounded px-1.5 py-0.5">REQ-024</span>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
+                                Interactive revenue charts filtered by date range. Use Recharts with custom tooltips
+                                matching the design system.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="group flex items-start gap-4 p-4 rounded-lg bg-gray-50 dark:bg-surface-darker border border-gray-200 dark:border-gray-800/60 hover:border-primary/30 transition-colors opacity-75 hover:opacity-100">
+                        <div class="mt-0.5 flex-shrink-0">
+                            <span
+                                class="flex items-center justify-center w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400">
+                                <span class="material-icons-round text-xs font-bold">remove</span>
+                            </span>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <h4 class="text-sm font-semibold text-gray-900 dark:text-gray-200">PDF Report Generation
+                                </h4>
+                                <span
+                                    class="text-[10px] font-mono text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700 rounded px-1.5 py-0.5">REQ-031</span>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">
+                                Backend service to generate monthly performance reports. Scheduled via Edge Functions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="col-span-12 lg:col-span-5 bg-white dark:bg-surface-dark rounded-xl border border-gray-200 dark:border-gray-700/50 p-6 shadow-sm flex flex-col h-full max-h-[500px]">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+                        <span class="material-icons-round text-gray-400">sticky_note_2</span>
+                        Project Annotations
+                    </h3>
+                    <button
+                        class="p-1.5 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 transition-colors">
+                        <span class="material-icons-round text-lg">add</span>
+                    </button>
+                </div>
+                <div class="flex-1 space-y-3 overflow-y-auto pr-2 custom-scrollbar">
+                    <div
+                        class="p-4 bg-yellow-50/50 dark:bg-yellow-900/5 border-l-2 border-yellow-400 dark:border-yellow-600/50 rounded-r-lg">
+                        <div class="flex justify-between items-start mb-1">
+                            <span
+                                class="text-xs font-bold text-yellow-800 dark:text-yellow-500 uppercase tracking-wide">Critical</span>
+                            <span class="text-[10px] text-gray-400">2h ago</span>
+                        </div>
+                        <p class="text-sm text-gray-800 dark:text-gray-300">
+                            API keys for the production Stripe environment have been rotated. Check the 1Password vault
+                            for "Stripe Prod 2024".
+                        </p>
+                    </div>
+                    <div
+                        class="p-4 bg-blue-50/50 dark:bg-blue-900/5 border-l-2 border-blue-400 dark:border-blue-500/50 rounded-r-lg">
+                        <div class="flex justify-between items-start mb-1">
+                            <span
+                                class="text-xs font-bold text-blue-800 dark:text-blue-400 uppercase tracking-wide">Design</span>
+                            <span class="text-[10px] text-gray-400">Yesterday</span>
+                        </div>
+                        <p class="text-sm text-gray-800 dark:text-gray-300">
+                            New Figma mocks for the mobile view are ready for review. @FrontendTeam please check frame
+                            #402.
+                        </p>
+                    </div>
+                    <div
+                        class="p-4 bg-gray-50 dark:bg-surface-darker border-l-2 border-gray-300 dark:border-gray-600 rounded-r-lg">
+                        <div class="flex justify-between items-start mb-1">
+                            <span
+                                class="text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wide">Meeting</span>
+                            <span class="text-[10px] text-gray-400">Oct 20</span>
+                        </div>
+                        <p class="text-sm text-gray-800 dark:text-gray-300">
+                            Client requested to prioritize the "Inventory Alert" feature for the MVP launch. Adjust
+                            sprint accordingly.
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-t border-gray-200 dark:border-gray-800">
+                    <div class="relative">
+                        <input
+                            class="w-full bg-gray-50 dark:bg-surface-darker border border-gray-300 dark:border-gray-700 rounded-lg py-2.5 pl-3 pr-10 text-sm text-gray-900 dark:text-white focus:ring-1 focus:ring-primary focus:border-primary placeholder-gray-400 transition-colors"
+                            placeholder="Add a quick note..." type="text" />
+                        <button
+                            class="absolute right-2 top-2 text-primary hover:text-primary-hover p-1 rounded-md hover:bg-primary/10 transition-colors">
+                            <span class="material-icons-round text-lg">send</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-12 mb-4 text-center">
+            <p class="text-xs text-text-secondary">© 2024 DevHub Manager. All rights reserved.</p>
+        </div>
+    </main>
+    <script>
+        // Simple toggle logic for demo purposes
+        const toggleTheme = () => {
+            document.documentElement.classList.toggle('dark');
+        };
+    </script>
+
+</body>
+
+</html>

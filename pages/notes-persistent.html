@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project Notes - DevHub Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#308ce8",
+                        "primary-hover": "#256kb9",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#111921",
+                        "surface-dark": "#1a2632",
+                        "border-dark": "#344d65",
+                        "text-secondary": "#93adc8",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111921; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #344d65; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4b6b8b; 
+        }
+        .editor-content:focus {
+            outline: none;
+        }::selection {
+            background-color: rgba(48, 140, 232, 0.3);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-white font-display overflow-hidden h-screen flex">
+<nav class="w-64 flex flex-col justify-between border-r border-border-dark bg-[#0b1218] shrink-0 z-20">
+<div class="flex flex-col p-4 gap-6 flex-1 overflow-y-auto">
+<div class="flex gap-3 items-center px-2 shrink-0">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-10 shrink-0 shadow-lg shadow-blue-900/20" data-alt="Abstract blue geometric logo" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC55X9N9dI2WGT19bMWGy0LmtiKI0Lpx5wKpavq6aHuMN4NmJ2DmBeNtUaaqqQnVA3yddjf4i5bLPqpMUTccTF0wH7F8EGVLg5NkSCpg4TAcBLszmNiaeOBzDCXqf93sinjmL3-pp6pjEibmPbJVVt_J_5xPLAGbsJ-D8cl7v8gUf22BpmdSXVSBXjB_xQKgWML8K7NR659vC4vRrs_n5uk-2BP46MciGRgVb2G0hc7wukzuXA9RoNt5TyIZ8WR6KTtpn4ySrDvSFsX");'></div>
+<div class="flex flex-col">
+<h1 class="text-white text-base font-bold leading-normal tracking-tight">DevHub Manager</h1>
+<p class="text-text-secondary text-xs font-normal leading-normal">Agile PM</p>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-dark hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-white transition-colors">dashboard</span>
+<span class="text-sm font-medium leading-normal">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-dark hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-white transition-colors">folder_copy</span>
+<span class="text-sm font-medium leading-normal">Projects</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-dark hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-white transition-colors">view_kanban</span>
+<span class="text-sm font-medium leading-normal">Kanban Board</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-dark hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-white transition-colors">code</span>
+<span class="text-sm font-medium leading-normal">Code Repository</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-dark hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-white transition-colors">groups</span>
+<span class="text-sm font-medium leading-normal">Team</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary border border-primary/20" href="#">
+<span class="material-symbols-outlined fill-1">sticky_note_2</span>
+<span class="text-sm font-bold leading-normal">Notes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-dark hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined group-hover:text-white transition-colors">settings</span>
+<span class="text-sm font-medium leading-normal">Settings</span>
+</a>
+</div>
+</div>
+<div class="p-4 border-t border-border-dark flex flex-col gap-2">
+<button class="flex items-center justify-between px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-dark hover:text-white transition-colors group w-full">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined group-hover:text-white transition-colors">dark_mode</span>
+<span class="text-sm font-medium leading-normal">Dark Theme</span>
+</div>
+<div class="relative inline-flex h-5 w-9 items-center rounded-full bg-primary">
+<span class="translate-x-4 inline-block h-3.5 w-3.5 transform rounded-full bg-white transition"></span>
+</div>
+</button>
+<div class="flex items-center gap-3 px-3 py-2 cursor-pointer hover:bg-surface-dark rounded-lg transition-colors">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8 bg-surface-dark border border-border-dark" data-alt="User profile avatar gradient" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuATsGwSFW0qA00BxDaS0OGz8cZjqZ-BAyC69-mIKnlgb4KukCnQn9osBUN-l6TEzdWOtcwcQ_62wr0EgaQCKM3-44zZ-jSiYX3I3w47UeE4s4UyqbDXgtA8eJisQWYOriVMLSwLI5EYEgCDxZ1r-eNJL1F25T9V0jkeao2C_du4Hii6yztW4404mkc1SjEfZKd3Oa7ZkKcUfXZERv2WbqJxyD2Y0dqb5g7WaZ3n-fgUTzkJuF-Q1j-YownCK63u6ZL27qsM_PRbeygS");'></div>
+<div class="flex flex-col overflow-hidden">
+<p class="text-white text-sm font-medium truncate">Alex Developer</p>
+<p class="text-text-secondary text-xs truncate">alex@devhubmanager.io</p>
+</div>
+</div>
+</div>
+</nav>
+<aside class="w-80 flex flex-col border-r border-border-dark bg-background-dark shrink-0 z-10">
+<div class="p-4 border-b border-border-dark flex flex-col gap-4 bg-background-dark/95 backdrop-blur sticky top-0 z-10">
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary hover:bg-blue-600 text-white gap-2 text-sm font-bold shadow-lg shadow-blue-900/20 transition-all active:scale-[0.98]">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>New Project Note</span>
+</button>
+<div class="flex w-full items-center rounded-lg bg-surface-dark border border-border-dark focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-text-secondary pl-3 text-[20px]">search</span>
+<input class="w-full bg-transparent border-none text-white placeholder:text-text-secondary text-sm h-10 focus:ring-0" placeholder="Search project notes..."/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto">
+<div class="cursor-pointer border-b border-border-dark bg-surface-dark border-l-4 border-l-primary p-4 hover:bg-surface-dark transition-colors group">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-white text-sm font-semibold line-clamp-1 group-hover:text-primary transition-colors">Q3 Roadmap Planning</h3>
+<span class="text-text-secondary text-xs whitespace-nowrap">2m ago</span>
+</div>
+<p class="text-text-secondary text-xs line-clamp-2 leading-relaxed">
+                Key objectives for Q3 include the new authentication system and the migration to...
+            </p>
+<div class="mt-2 flex gap-1">
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">Planning</span>
+</div>
+</div>
+<div class="cursor-pointer border-b border-border-dark p-4 hover:bg-surface-dark/50 transition-colors group">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-white text-sm font-medium line-clamp-1 group-hover:text-primary transition-colors">API Endpoint Specs</h3>
+<span class="text-text-secondary text-xs whitespace-nowrap">4h ago</span>
+</div>
+<p class="text-text-secondary text-xs line-clamp-2 leading-relaxed">
+                /api/v1/projects requires authentication. The payload structure should follow the JSON:API standard...
+            </p>
+<div class="mt-2 flex gap-1">
+<span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">Backend</span>
+</div>
+</div>
+<div class="cursor-pointer border-b border-border-dark p-4 hover:bg-surface-dark/50 transition-colors group">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-white text-sm font-medium line-clamp-1 group-hover:text-primary transition-colors">Deployment Checklist</h3>
+<span class="text-text-secondary text-xs whitespace-nowrap">Yesterday</span>
+</div>
+<p class="text-text-secondary text-xs line-clamp-2 leading-relaxed">
+                1. Run tests. 2. Build assets. 3. Update env vars. 4. Deploy to staging first.
+            </p>
+</div>
+<div class="cursor-pointer border-b border-border-dark p-4 hover:bg-surface-dark/50 transition-colors group">
+<div class="flex justify-between items-start mb-1">
+<h3 class="text-white text-sm font-medium line-clamp-1 group-hover:text-primary transition-colors">Design System Review</h3>
+<span class="text-text-secondary text-xs whitespace-nowrap">Oct 24</span>
+</div>
+<p class="text-text-secondary text-xs line-clamp-2 leading-relaxed">
+                Feedback from the design team regarding the primary blue shade and dark mode contrast.
+            </p>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col h-full relative bg-background-dark min-w-0">
+<header class="h-14 border-b border-border-dark flex items-center justify-between px-6 bg-background-dark shrink-0">
+<div class="flex items-center gap-4">
+<div class="relative group border-r border-border-dark pr-4">
+<button class="flex items-center gap-2 text-sm font-semibold text-white hover:text-primary transition-colors rounded-md p-1 -ml-1 hover:bg-surface-dark">
+<div class="size-6 rounded bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[16px]">rocket_launch</span>
+</div>
+<span>Phoenix Protocol</span>
+<span class="material-symbols-outlined text-text-secondary text-[20px]">expand_more</span>
+</button>
+</div>
+<div class="flex items-center gap-1">
+<button class="size-8 flex items-center justify-center rounded text-text-secondary hover:bg-surface-dark hover:text-white transition-colors" title="Bold">
+<span class="material-symbols-outlined text-[20px]">format_bold</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded text-text-secondary hover:bg-surface-dark hover:text-white transition-colors" title="Italic">
+<span class="material-symbols-outlined text-[20px]">format_italic</span>
+</button>
+<div class="w-px h-4 bg-border-dark mx-2"></div>
+<button class="size-8 flex items-center justify-center rounded text-text-secondary hover:bg-surface-dark hover:text-white transition-colors" title="Code Block">
+<span class="material-symbols-outlined text-[20px]">code</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded text-text-secondary hover:bg-surface-dark hover:text-white transition-colors" title="Link">
+<span class="material-symbols-outlined text-[20px]">link</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded text-text-secondary hover:bg-surface-dark hover:text-white transition-colors" title="List">
+<span class="material-symbols-outlined text-[20px]">format_list_bulleted</span>
+</button>
+<button class="size-8 flex items-center justify-center rounded text-text-secondary hover:bg-surface-dark hover:text-white transition-colors" title="Checklist">
+<span class="material-symbols-outlined text-[20px]">check_box</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-2 py-1 rounded bg-green-500/10 border border-green-500/20">
+<span class="material-symbols-outlined text-green-500 text-[16px]">cloud_done</span>
+<span class="text-green-500 text-xs font-medium">Saved</span>
+</div>
+<div class="h-4 w-px bg-border-dark"></div>
+<button class="text-text-secondary hover:text-white transition-colors" title="Note Info">
+<span class="material-symbols-outlined text-[20px]">info</span>
+</button>
+<button class="text-text-secondary hover:text-red-400 transition-colors" title="Delete Note">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</header>
+<div class="flex-1 overflow-y-auto p-8 md:px-12 lg:px-20">
+<div class="max-w-3xl mx-auto flex flex-col gap-6 h-full pb-20">
+<input class="w-full bg-transparent border-none text-3xl md:text-4xl font-bold text-white placeholder:text-text-secondary/50 focus:ring-0 p-0" placeholder="Note Title" type="text" value="Q3 Roadmap Planning"/>
+<div class="flex gap-2 items-center">
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-surface-dark text-text-secondary border border-border-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">tag</span> Planning
+                </span>
+<span class="px-2 py-0.5 rounded text-xs font-medium bg-surface-dark text-text-secondary border border-border-dark flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">tag</span> Management
+                </span>
+<button class="text-text-secondary hover:text-primary text-xs flex items-center gap-1 ml-2 transition-colors">
+<span class="material-symbols-outlined text-[14px]">add</span> Add Tag
+                </button>
+</div>
+<div class="flex-1 text-base leading-7 text-gray-300 font-normal outline-none editor-content" contenteditable="true">
+<p class="mb-4">Preliminary notes for the upcoming quarter. Focus should shift towards stability and the new authentication module.</p>
+<h3 class="text-xl font-semibold text-white mt-8 mb-3">Core Objectives</h3>
+<ul class="list-disc list-inside mb-4 space-y-2 text-gray-300">
+<li>Launch <span class="text-primary font-medium">Auth v2.0</span> with SSO support.</li>
+<li>Reduce API latency by 15% across all endpoints.</li>
+<li>Deprecate legacy project dashboard.</li>
+</ul>
+<h3 class="text-xl font-semibold text-white mt-8 mb-3">Migration Strategy</h3>
+<div class="flex flex-col gap-2 mb-6">
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="size-5 rounded border border-border-dark bg-surface-dark flex items-center justify-center group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-primary text-[16px]">check</span>
+</div>
+<span class="text-gray-400 line-through">Audit current user roles</span>
+</label>
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="size-5 rounded border border-border-dark bg-surface-dark flex items-center justify-center group-hover:border-primary transition-colors"></div>
+<span class="text-gray-300">Prepare database migration scripts</span>
+</label>
+<label class="flex items-center gap-3 group cursor-pointer">
+<div class="size-5 rounded border border-border-dark bg-surface-dark flex items-center justify-center group-hover:border-primary transition-colors"></div>
+<span class="text-gray-300">Schedule maintenance window</span>
+</label>
+</div>
+<h3 class="text-xl font-semibold text-white mt-8 mb-3">Key Stakeholders</h3>
+<div class="flex items-center gap-3 mb-4">
+<div class="flex -space-x-2">
+<div class="size-8 rounded-full border-2 border-background-dark bg-gray-600 flex items-center justify-center text-xs">AB</div>
+<div class="size-8 rounded-full border-2 border-background-dark bg-blue-600 flex items-center justify-center text-xs">JD</div>
+<div class="size-8 rounded-full border-2 border-background-dark bg-purple-600 flex items-center justify-center text-xs">MK</div>
+</div>
+<span class="text-text-secondary text-sm">+ Design Team</span>
+</div>
+<p class="mt-8 text-gray-400 italic text-sm border-t border-border-dark pt-4">Created by Alex Developer on Oct 25, 2023.</p>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

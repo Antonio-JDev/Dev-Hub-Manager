@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>DevHub Manager - Configurações</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#6366f1", // Indigo 500
+                        secondary: "#10b981", // Emerald 500
+                        warning: "#f59e0b", // Amber 500
+                        danger: "#ef4444", // Red 500
+                        "background-light": "#f3f4f6", // Gray 100
+                        "background-dark": "#0B1121", // Deep Navy
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#151E32", // Lighter Navy for cards
+                        "border-light": "#e5e7eb",
+                        "border-dark": "#2d3748",
+                        "text-main-light": "#111827",
+                        "text-main-dark": "#f3f4f6",
+                        "text-muted-light": "#6b7280",
+                        "text-muted-dark": "#9ca3af",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .sidebar-item {
+            position: relative;
+        }
+
+        .sidebar-item .tooltip {
+            visibility: hidden;
+            width: max-content;
+            background-color: #1e293b;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 10px;
+            position: absolute;
+            z-index: 100;
+            left: 125%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.75rem;
+            pointer-events: none;
+        }
+
+        .sidebar-item:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #6366f1;
+        }
+
+        .toggle-checkbox:checked+.toggle-label {
+            background-color: #6366f1;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark font-body transition-colors duration-300 antialiased h-screen overflow-hidden flex">
+    <aside
+        class="w-20 bg-surface-light dark:bg-surface-dark border-r border-border-light dark:border-border-dark flex flex-col items-center py-6 flex-shrink-0 z-20">
+        <div class="mb-8">
+            <div
+                class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/30">
+                D
+            </div>
+        </div>
+        <nav class="flex-1 w-full flex flex-col gap-4 items-center">
+            <a class="sidebar-item group p-3 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 transition-all relative"
+                href="#">
+                <span class="material-icons-outlined">dashboard</span>
+                <span class="tooltip">Dashboard</span>
+            </a>
+            <a class="sidebar-item group p-3 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 transition-all relative"
+                href="#">
+                <span class="material-icons-outlined">assignment</span>
+                <span class="tooltip">Projetos</span>
+            </a>
+            <a class="sidebar-item group p-3 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 transition-all relative"
+                href="#">
+                <span class="material-icons-outlined">view_kanban</span>
+                <span class="tooltip">Kanban Board</span>
+            </a>
+            <a class="sidebar-item group p-3 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 transition-all relative"
+                href="#">
+                <span class="material-icons-outlined">code</span>
+                <span class="tooltip">Repositório de Código</span>
+            </a>
+            <a class="sidebar-item group p-3 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 transition-all relative"
+                href="#">
+                <span class="material-icons-outlined">group</span>
+                <span class="tooltip">Equipe</span>
+            </a>
+            <a class="sidebar-item group p-3 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 transition-all relative"
+                href="#">
+                <span class="material-icons-outlined">description</span>
+                <span class="tooltip">Anotações</span>
+            </a>
+            <a class="sidebar-item group p-3 rounded-xl bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary transition-all relative"
+                href="#">
+                <span class="material-icons-outlined">settings</span>
+                <span class="tooltip">Configurações</span>
+            </a>
+        </nav>
+        <div class="mt-auto flex flex-col gap-4 items-center">
+            <button
+                class="sidebar-item group p-3 rounded-xl text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 transition-all relative"
+                onclick="document.documentElement.classList.toggle('dark')">
+                <span class="material-icons-outlined">brightness_4</span>
+                <span class="tooltip">Alternar Tema</span>
+            </button>
+        </div>
+    </aside>
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative">
+        <header
+            class="h-20 px-8 border-b border-border-light dark:border-border-dark flex items-center justify-between bg-background-light dark:bg-background-dark flex-shrink-0">
+            <div>
+                <h1 class="text-xl md:text-2xl font-bold text-text-main-light dark:text-white tracking-tight">
+                    Configurações</h1>
+                <p class="text-xs md:text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Gerencie suas
+                    preferências e conta do DevHub Manager</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="h-2 w-2 rounded-full bg-green-500"></span>
+                    <span class="text-sm font-medium text-text-muted-light dark:text-gray-300">Sistema
+                        Operacional</span>
+                </div>
+            </div>
+        </header>
+        <div class="flex-1 overflow-y-auto p-8 scrollbar-hide">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-3">
+                    <nav class="space-y-1 sticky top-0">
+                        <a class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg bg-white dark:bg-surface-dark text-primary shadow-sm border border-border-light dark:border-border-dark"
+                            href="#account">
+                            <span class="material-icons-outlined text-[20px]">person</span>
+                            Minha Conta
+                        </a>
+                        <a class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-surface-dark/50 hover:text-text-main-light dark:hover:text-white transition-colors"
+                            href="#notifications">
+                            <span class="material-icons-outlined text-[20px]">notifications</span>
+                            Notificações
+                        </a>
+                        <a class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-surface-dark/50 hover:text-text-main-light dark:hover:text-white transition-colors"
+                            href="#display">
+                            <span class="material-icons-outlined text-[20px]">palette</span>
+                            Tema &amp; Exibição
+                        </a>
+                        <a class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-surface-dark/50 hover:text-text-main-light dark:hover:text-white transition-colors"
+                            href="#integrations">
+                            <span class="material-icons-outlined text-[20px]">extension</span>
+                            Integrações
+                        </a>
+                        <a class="flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-surface-dark/50 hover:text-text-main-light dark:hover:text-white transition-colors"
+                            href="#billing">
+                            <span class="material-icons-outlined text-[20px]">credit_card</span>
+                            Cobrança &amp; Planos
+                        </a>
+                    </nav>
+                </div>
+                <div class="lg:col-span-9 space-y-8">
+                    <section
+                        class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm overflow-hidden"
+                        id="account">
+                        <div class="p-6 border-b border-border-light dark:border-border-dark">
+                            <h2 class="text-lg font-bold text-text-main-light dark:text-white">Perfil e Conta</h2>
+                            <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Atualize sua foto e
+                                detalhes pessoais.</p>
+                        </div>
+                        <div class="p-6 space-y-6">
+                            <div class="flex items-center gap-6">
+                                <div class="relative group cursor-pointer">
+                                    <div
+                                        class="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center text-primary text-2xl font-bold overflow-hidden">
+                                        <span>JD</span>
+                                    </div>
+                                    <div
+                                        class="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <span class="material-icons-outlined text-white">camera_alt</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-sm font-medium text-text-main-light dark:text-white">Sua Foto</h3>
+                                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mb-3">Isso será
+                                        exibido no seu perfil.</p>
+                                    <div class="flex gap-3">
+                                        <button
+                                            class="px-3 py-1.5 text-xs font-medium rounded-md bg-white dark:bg-gray-700 border border-border-light dark:border-gray-600 text-text-main-light dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">Carregar
+                                            Nova</button>
+                                        <button
+                                            class="px-3 py-1.5 text-xs font-medium rounded-md text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">Remover</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label
+                                        class="block text-sm font-medium text-text-main-light dark:text-gray-300 mb-1">Nome
+                                        Completo</label>
+                                    <input
+                                        class="w-full rounded-lg bg-background-light dark:bg-[#0B1121] border-border-light dark:border-border-dark text-text-main-light dark:text-white text-sm focus:ring-primary focus:border-primary"
+                                        type="text" value="John Doe" />
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-sm font-medium text-text-main-light dark:text-gray-300 mb-1">Email</label>
+                                    <input
+                                        class="w-full rounded-lg bg-background-light dark:bg-[#0B1121] border-border-light dark:border-border-dark text-text-main-light dark:text-white text-sm focus:ring-primary focus:border-primary"
+                                        type="email" value="john.doe@devhub.com" />
+                                </div>
+                                <div class="md:col-span-2">
+                                    <label
+                                        class="block text-sm font-medium text-text-main-light dark:text-gray-300 mb-1">Bio</label>
+                                    <textarea
+                                        class="w-full rounded-lg bg-background-light dark:bg-[#0B1121] border-border-light dark:border-border-dark text-text-main-light dark:text-white text-sm focus:ring-primary focus:border-primary"
+                                        rows="3">Full-stack developer apaixonado por arquitetura limpa e UI/UX.</textarea>
+                                </div>
+                            </div>
+                            <div class="pt-6 border-t border-border-light dark:border-border-dark">
+                                <h3 class="text-sm font-medium text-text-main-light dark:text-white mb-4">Alterar Senha
+                                </h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                    <div>
+                                        <label class="block text-xs text-text-muted-light dark:text-gray-400 mb-1">Senha
+                                            Atual</label>
+                                        <input
+                                            class="w-full rounded-lg bg-background-light dark:bg-[#0B1121] border-border-light dark:border-border-dark text-text-main-light dark:text-white text-sm focus:ring-primary focus:border-primary"
+                                            type="password" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs text-text-muted-light dark:text-gray-400 mb-1">Nova
+                                            Senha</label>
+                                        <input
+                                            class="w-full rounded-lg bg-background-light dark:bg-[#0B1121] border-border-light dark:border-border-dark text-text-main-light dark:text-white text-sm focus:ring-primary focus:border-primary"
+                                            type="password" />
+                                    </div>
+                                    <div class="flex items-end">
+                                        <button
+                                            class="px-4 py-2 w-full rounded-lg bg-primary text-white text-sm font-medium hover:bg-indigo-600 transition-colors shadow-lg shadow-indigo-500/20">Atualizar
+                                            Senha</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section
+                        class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm"
+                        id="notifications">
+                        <div class="p-6 border-b border-border-light dark:border-border-dark">
+                            <h2 class="text-lg font-bold text-text-main-light dark:text-white">Preferências de
+                                Notificação</h2>
+                            <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Controle como e
+                                quando você é notificado.</p>
+                        </div>
+                        <div class="p-6 space-y-6">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-text-main-light dark:text-white">Email Diário
+                                        (Digest)</h3>
+                                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark">Receba um resumo
+                                        das atividades todos os dias às 9h.</p>
+                                </div>
+                                <div
+                                    class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                    <input
+                                        class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300"
+                                        id="toggle1" name="toggle" type="checkbox" />
+                                    <label
+                                        class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
+                                        for="toggle1"></label>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-text-main-light dark:text-white">Tarefas
+                                        Atribuídas</h3>
+                                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark">Notificar
+                                        imediatamente quando uma tarefa for atribuída a mim.</p>
+                                </div>
+                                <div
+                                    class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                    <input checked=""
+                                        class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300"
+                                        id="toggle2" name="toggle" type="checkbox" />
+                                    <label
+                                        class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
+                                        for="toggle2"></label>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h3 class="text-sm font-medium text-text-main-light dark:text-white">Prazos Próximos
+                                    </h3>
+                                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark">Alertar 24 horas
+                                        antes do vencimento de uma tarefa.</p>
+                                </div>
+                                <div
+                                    class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+                                    <input checked=""
+                                        class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 appearance-none cursor-pointer border-gray-300"
+                                        id="toggle3" name="toggle" type="checkbox" />
+                                    <label
+                                        class="toggle-label block overflow-hidden h-5 rounded-full bg-gray-300 cursor-pointer"
+                                        for="toggle3"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section
+                        class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm"
+                        id="integrations">
+                        <div class="p-6 border-b border-border-light dark:border-border-dark">
+                            <h2 class="text-lg font-bold text-text-main-light dark:text-white">Integrações</h2>
+                            <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Conecte o DevHub com
+                                suas ferramentas favoritas.</p>
+                        </div>
+                        <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div
+                                class="p-4 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-[#0B1121] flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="w-10 h-10 bg-white rounded-md flex items-center justify-center shadow-sm">
+                                        <img alt="GitHub" class="w-6 h-6"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiLWq9iKeK2Qz0B0mwauuyc66FnntC18NCedl9GwjWvRzO6CcYoSLhz-fSAxI4zdAJRbDsEgk159AE1KsY8vUzw-bk40toueejnEhCbwZIApxnynWjjcqAbQgICq69B0ex2RMCVE2ksJiMD6BKflwP6bVKkLf7h1Z_lrOeDQ4AEpxsw6WmOiRWa_T35jhWwYZ5S7dO2ktt1R_XhFWouy3xErKCayvsxU9lOKRZQBv6xIO9aJ6wHYyuDUidBakq1Arf7h8Nz2hEPs9q" />
+                                    </div>
+                                    <div>
+                                        <h3 class="text-sm font-semibold text-text-main-light dark:text-white">GitHub
+                                        </h3>
+                                        <p class="text-xs text-green-500 font-medium">Conectado</p>
+                                    </div>
+                                </div>
+                                <button
+                                    class="text-xs px-3 py-1 rounded border border-border-light dark:border-border-dark hover:bg-gray-100 dark:hover:bg-surface-dark text-text-muted-light dark:text-gray-300">Configurar</button>
+                            </div>
+                            <div
+                                class="p-4 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-[#0B1121] flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="w-10 h-10 bg-[#4A154B] rounded-md flex items-center justify-center shadow-sm">
+                                        <span class="material-icons-outlined text-white text-xl">tag</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-sm font-semibold text-text-main-light dark:text-white">Slack
+                                        </h3>
+                                        <p class="text-xs text-text-muted-light dark:text-gray-500">Não conectado</p>
+                                    </div>
+                                </div>
+                                <button
+                                    class="text-xs px-3 py-1 rounded bg-white dark:bg-surface-dark text-text-main-light dark:text-white shadow-sm border border-border-light dark:border-transparent hover:bg-gray-50">Conectar</button>
+                            </div>
+                            <div
+                                class="p-4 rounded-lg border border-border-light dark:border-border-dark bg-background-light dark:bg-[#0B1121] flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="w-10 h-10 bg-[#0052CC] rounded-md flex items-center justify-center shadow-sm">
+                                        <span class="material-icons-outlined text-white text-xl">view_agenda</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-sm font-semibold text-text-main-light dark:text-white">Jira</h3>
+                                        <p class="text-xs text-text-muted-light dark:text-gray-500">Não conectado</p>
+                                    </div>
+                                </div>
+                                <button
+                                    class="text-xs px-3 py-1 rounded bg-white dark:bg-surface-dark text-text-main-light dark:text-white shadow-sm border border-border-light dark:border-transparent hover:bg-gray-50">Conectar</button>
+                            </div>
+                        </div>
+                    </section>
+                    <section
+                        class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm"
+                        id="billing">
+                        <div
+                            class="p-6 border-b border-border-light dark:border-border-dark flex justify-between items-center">
+                            <div>
+                                <h2 class="text-lg font-bold text-text-main-light dark:text-white">Plano &amp; Cobrança
+                                </h2>
+                                <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Plano Atual:
+                                    <span class="text-primary font-bold">Pro Team</span></p>
+                            </div>
+                            <button class="text-sm text-primary hover:text-indigo-400 font-medium">Gerenciar
+                                Assinatura</button>
+                        </div>
+                        <div class="p-6">
+                            <div class="mb-4">
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-text-muted-light dark:text-gray-400">Armazenamento (15GB /
+                                        50GB)</span>
+                                    <span class="text-text-main-light dark:text-white font-medium">30%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-secondary h-full rounded-full" style="width: 30%"></div>
+                                </div>
+                            </div>
+                            <div class="mb-2">
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-text-muted-light dark:text-gray-400">Membros da Equipe (8 /
+                                        10)</span>
+                                    <span class="text-text-main-light dark:text-white font-medium">80%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 dark:bg-gray-700 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-warning h-full rounded-full" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section
+                        class="rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50 dark:bg-red-900/10 shadow-sm">
+                        <div class="p-6">
+                            <h2 class="text-lg font-bold text-red-600 dark:text-red-400">Zona de Perigo</h2>
+                            <p class="text-sm text-red-500/80 mt-1 mb-4">Ações irreversíveis. Prossiga com cuidado.</p>
+                            <div
+                                class="flex items-center justify-between p-4 bg-white dark:bg-surface-dark border border-red-100 dark:border-red-900/30 rounded-lg">
+                                <div>
+                                    <h3 class="text-sm font-semibold text-text-main-light dark:text-white">Excluir Conta
+                                    </h3>
+                                    <p class="text-xs text-text-muted-light dark:text-gray-400">Uma vez excluída, sua
+                                        conta não poderá ser recuperada.</p>
+                                </div>
+                                <button
+                                    class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors shadow-lg shadow-red-600/20">
+                                    Excluir Conta
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        // Simple script to handle dark mode persistence if needed in a real app, 
+        // but for this view only the inline toggle script is provided in the html button.
+    </script>
+
+</body>
+
+</html>

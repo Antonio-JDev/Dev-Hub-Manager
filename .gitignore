@@ -1,0 +1,52 @@
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+
+# Dependencies
+node_modules/
+
+# Builds
+dist/
+build/
+out/
+.next/
+.nuxt/
+.svelte-kit/
+
+# Caches / tooling
+.cache/
+.parcel-cache/
+.turbo/
+.vite/
+.eslintcache
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Tests / coverage
+coverage/
+.nyc_output/
+
+# Runtime files
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# IDE / OS
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.idea/
+.vscode/
+

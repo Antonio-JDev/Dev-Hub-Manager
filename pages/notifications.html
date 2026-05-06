@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DevHub Manager - Notificações</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2463eb",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "surface-dark": "#1e293b",
+                        "border-dark": "#334155",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white transition-colors duration-200">
+<div class="flex h-screen w-full overflow-hidden">
+<!-- Sidebar -->
+<div class="hidden md:flex flex-col w-72 shrink-0 border-r border-slate-200 dark:border-border-dark bg-white dark:bg-[#111622] h-full overflow-y-auto">
+<div class="flex flex-col h-full justify-between p-4">
+<div class="flex flex-col gap-6">
+<!-- User Profile / Branding -->
+<div class="flex items-center gap-3 px-2">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 shadow-inner ring-1 ring-white/10" data-alt="User profile avatar gradient" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCvWbV5qrFdyBzSuq_Q60Vbfmd2mTrZMNSyOZq4uTJjqkq6MCjrZ_qXjTlyDVs4yNLOMTZA7m0YW6b0_0MBHmVcRCUb2XNFjRyQQ-fl5zVEjxyDztt6Cvr2sjL-pCawN5CI8YY_qnYHRgZT2EkbW7e4dR_e6QkK6600jsMzj-hN2gk2kmKt1hokBpndihyUGmUGZMiYukaJlS6vL7fw6faC12mmn6z5zcurYP1KDaTUt7d49BEsWFNIEs3pJDwHjsCRbEiuV_e5lxmf");'></div>
+<div class="flex flex-col">
+<h1 class="text-slate-900 dark:text-white text-base font-bold leading-tight">DevHub Manager</h1>
+<p class="text-slate-500 dark:text-[#92a4c8] text-xs font-medium leading-normal">Agile Project Mgmt</p>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#242f47] dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#242f47] dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">folder_open</span>
+<span class="text-sm font-medium">Projetos</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#242f47] dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">view_kanban</span>
+<span class="text-sm font-medium">Kanban Board</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#242f47] dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">terminal</span>
+<span class="text-sm font-medium">Repositório de Código</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#242f47] dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">group</span>
+<span class="text-sm font-medium">Equipe</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#242f47] dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">edit_note</span>
+<span class="text-sm font-medium">Anotações</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#242f47] dark:hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">settings</span>
+<span class="text-sm font-medium">Configurações</span>
+</a>
+</nav>
+</div>
+<!-- Theme Toggle -->
+<div class="flex flex-col gap-1 border-t border-slate-200 dark:border-white/10 pt-4">
+<button class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-[#242f47] dark:hover:text-white transition-colors w-full text-left group">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">light_mode</span>
+<span class="text-sm font-medium">Theme Toggle</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="flex-1 flex flex-col h-full overflow-hidden relative">
+<!-- Mobile Header Placeholder (visible only on small screens) -->
+<div class="md:hidden flex items-center justify-between p-4 bg-white dark:bg-[#111622] border-b border-slate-200 dark:border-border-dark shrink-0">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat bg-cover rounded-full size-8" data-alt="User profile avatar small" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAA3hgkqbpMVbRLDMBH8222vFF2eD_pFSpsa0FEUFdcb_IzyaULU7PP9OArC1UvfDuxXkWxfdlsJXO55T8MlR6gHK1305polwsj7DfDV3rwJq9V4wToh51F1CYHLZoy4MzoW_vsVnJrmp9poTd7zszpfuYhjA4XEYvwtA0cjdyUmbXTRmi_UXljsMNz5qIVxKcSLq8s_dINoyx75ZkqVqxGeyUMOb9Agz8B8OMGoicDPaipnCliYPYCIYoTLHHtajSX5GjcSdTmoz9Z");'></div>
+<span class="font-bold text-slate-900 dark:text-white">DevHub</span>
+</div>
+<button class="text-slate-500 dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<!-- Scrollable Area -->
+<div class="flex-1 overflow-y-auto p-4 md:p-8 lg:p-12 scroll-smooth">
+<div class="max-w-5xl mx-auto flex flex-col gap-8 pb-20">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+<div class="flex flex-col gap-2">
+<h2 class="text-3xl md:text-4xl font-black tracking-tight text-slate-900 dark:text-white">Notificações</h2>
+<p class="text-slate-500 dark:text-[#92a4c8] text-base">Gerencie seus alertas e atualizações do sistema.</p>
+</div>
+<button class="flex shrink-0 items-center justify-center gap-2 rounded-xl h-10 px-4 bg-primary/10 hover:bg-primary/20 text-primary dark:text-blue-400 text-sm font-bold transition-colors">
+<span class="material-symbols-outlined text-[18px]">done_all</span>
+<span class="truncate">Marcar tudo como lido</span>
+</button>
+</div>
+<!-- Filters and Search -->
+<div class="flex flex-wrap items-center justify-between gap-4 py-2 border-b border-slate-200 dark:border-white/10">
+<!-- Chips -->
+<div class="flex gap-2 overflow-x-auto no-scrollbar pb-2 md:pb-0">
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white px-4 transition-transform active:scale-95 shadow-lg shadow-primary/20">
+<span class="text-sm font-semibold">Todos</span>
+<span class="flex items-center justify-center bg-white/20 text-white text-[10px] font-bold h-4 w-4 rounded-full">8</span>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-[#242f47] hover:bg-slate-300 dark:hover:bg-[#323f5b] text-slate-700 dark:text-[#92a4c8] px-4 transition-colors">
+<span class="text-sm font-medium">Não Lidos</span>
+<span class="flex items-center justify-center bg-slate-400/30 dark:bg-white/10 text-slate-600 dark:text-white text-[10px] font-bold h-4 w-4 rounded-full">3</span>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-[#242f47] hover:bg-slate-300 dark:hover:bg-[#323f5b] text-slate-700 dark:text-[#92a4c8] px-4 transition-colors">
+<span class="text-sm font-medium">Menções</span>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-slate-200 dark:bg-[#242f47] hover:bg-slate-300 dark:hover:bg-[#323f5b] text-slate-700 dark:text-[#92a4c8] px-4 transition-colors">
+<span class="text-sm font-medium">Sistema</span>
+</button>
+</div>
+<!-- Sort/Filter Icon -->
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 text-slate-500 dark:text-[#92a4c8] hover:text-slate-900 dark:hover:text-white transition-colors text-sm font-medium">
+<span class="material-symbols-outlined text-[20px]">sort</span>
+<span class="hidden sm:inline">Mais Recentes</span>
+</button>
+</div>
+</div>
+<!-- Notification List -->
+<div class="flex flex-col gap-3">
+<!-- Today Section Header -->
+<h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mt-2 mb-1">Hoje</h3>
+<!-- Item 1: Unread, PR -->
+<div class="group relative flex flex-col sm:flex-row sm:items-center gap-4 bg-white dark:bg-[#1e293b] p-4 rounded-xl border border-transparent dark:border-white/5 hover:border-slate-300 dark:hover:border-white/10 hover:shadow-md transition-all cursor-pointer">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-xl"></div>
+<div class="flex items-start gap-4 flex-1">
+<div class="relative shrink-0">
+<div class="flex items-center justify-center rounded-lg bg-purple-100 dark:bg-[#242f47] text-purple-600 dark:text-purple-400 size-10 shrink-0">
+<span class="material-symbols-outlined">rebase</span>
+</div>
+<span class="absolute -top-1 -right-1 flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+</div>
+<div class="flex flex-col gap-1 pr-8 sm:pr-0">
+<div class="flex items-center gap-2 flex-wrap">
+<p class="text-slate-900 dark:text-white text-base font-semibold leading-snug">Lucas requested changes on <span class="text-purple-600 dark:text-purple-400 hover:underline">PR #42 'Auth Refactor'</span></p>
+</div>
+<p class="text-slate-500 dark:text-[#92a4c8] text-sm font-normal">Repositório de Código • <span class="text-slate-400">10 min ago</span></p>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-2 sm:mt-0 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity justify-end">
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors" title="Marcar como lida">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors" title="Arquivar">
+<span class="material-symbols-outlined text-[20px]">archive</span>
+</button>
+<button class="h-8 px-3 bg-white border border-slate-200 dark:bg-[#242f47] dark:border-white/10 text-slate-700 dark:text-white text-xs font-semibold rounded-lg hover:bg-slate-50 dark:hover:bg-[#323f5b] transition-colors whitespace-nowrap">
+                                    View Details
+                                </button>
+</div>
+</div>
+<!-- Item 2: Unread, Mention -->
+<div class="group relative flex flex-col sm:flex-row sm:items-center gap-4 bg-white dark:bg-[#1e293b] p-4 rounded-xl border border-transparent dark:border-white/5 hover:border-slate-300 dark:hover:border-white/10 hover:shadow-md transition-all cursor-pointer">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary rounded-l-xl"></div>
+<div class="flex items-start gap-4 flex-1">
+<div class="relative shrink-0">
+<div class="flex items-center justify-center rounded-lg bg-orange-100 dark:bg-[#242f47] text-orange-600 dark:text-orange-400 size-10 shrink-0">
+<span class="material-symbols-outlined">alternate_email</span>
+</div>
+<span class="absolute -top-1 -right-1 flex h-3 w-3">
+<span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+</span>
+</div>
+<div class="flex flex-col gap-1 pr-8 sm:pr-0">
+<p class="text-slate-900 dark:text-white text-base font-semibold leading-snug">Sarah mentioned you in a comment</p>
+<p class="text-slate-500 dark:text-[#92a4c8] text-sm font-normal">
+<span class="italic text-slate-600 dark:text-slate-300">"@devhub can you check the latest deployment logs?"</span> 
+                                        • <span class="text-slate-400">45 min ago</span>
+</p>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-2 sm:mt-0 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity justify-end">
+<button class="p-2 text-slate-400 hover:text-primary hover:bg-primary/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">check_circle</span>
+</button>
+<button class="h-8 px-3 bg-white border border-slate-200 dark:bg-[#242f47] dark:border-white/10 text-slate-700 dark:text-white text-xs font-semibold rounded-lg hover:bg-slate-50 dark:hover:bg-[#323f5b] transition-colors whitespace-nowrap">
+                                    Reply
+                                </button>
+</div>
+</div>
+<!-- Item 3: Read, Task -->
+<div class="group relative flex flex-col sm:flex-row sm:items-center gap-4 bg-white dark:bg-[#111622] p-4 rounded-xl border border-transparent hover:bg-white dark:hover:bg-[#1e293b] hover:border-slate-300 dark:hover:border-white/10 transition-all cursor-pointer">
+<div class="flex items-start gap-4 flex-1">
+<div class="relative shrink-0">
+<div class="flex items-center justify-center rounded-lg bg-emerald-100 dark:bg-[#242f47] text-emerald-600 dark:text-emerald-400 size-10 shrink-0">
+<span class="material-symbols-outlined">assignment_ind</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pr-8 sm:pr-0">
+<p class="text-slate-700 dark:text-slate-200 text-base font-medium leading-snug">You were assigned to <span class="font-semibold text-slate-900 dark:text-white">'Database Migration'</span></p>
+<p class="text-slate-500 dark:text-[#92a4c8] text-sm font-normal">Kanban Board • <span class="text-slate-400">2 hrs ago</span></p>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-2 sm:mt-0 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity justify-end">
+<button class="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">archive</span>
+</button>
+</div>
+</div>
+<!-- Yesterday Section Header -->
+<h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mt-6 mb-1">Ontem</h3>
+<!-- Item 4: Read, System -->
+<div class="group relative flex flex-col sm:flex-row sm:items-center gap-4 bg-white dark:bg-[#111622] p-4 rounded-xl border border-transparent hover:bg-white dark:hover:bg-[#1e293b] hover:border-slate-300 dark:hover:border-white/10 transition-all cursor-pointer opacity-75 hover:opacity-100">
+<div class="flex items-start gap-4 flex-1">
+<div class="relative shrink-0">
+<div class="flex items-center justify-center rounded-lg bg-blue-100 dark:bg-[#242f47] text-blue-600 dark:text-blue-400 size-10 shrink-0">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pr-8 sm:pr-0">
+<p class="text-slate-700 dark:text-slate-200 text-base font-medium leading-snug">Deployment to <span class="font-mono text-xs bg-slate-200 dark:bg-black/30 px-1.5 py-0.5 rounded">production</span> successful</p>
+<p class="text-slate-500 dark:text-[#92a4c8] text-sm font-normal">System • <span class="text-slate-400">Yesterday, 4:20 PM</span></p>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-2 sm:mt-0 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity justify-end">
+<button class="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">archive</span>
+</button>
+</div>
+</div>
+<!-- Item 5: Read, Deadline -->
+<div class="group relative flex flex-col sm:flex-row sm:items-center gap-4 bg-white dark:bg-[#111622] p-4 rounded-xl border border-transparent hover:bg-white dark:hover:bg-[#1e293b] hover:border-slate-300 dark:hover:border-white/10 transition-all cursor-pointer opacity-75 hover:opacity-100">
+<div class="flex items-start gap-4 flex-1">
+<div class="relative shrink-0">
+<div class="flex items-center justify-center rounded-lg bg-red-100 dark:bg-[#242f47] text-red-600 dark:text-red-400 size-10 shrink-0">
+<span class="material-symbols-outlined">warning</span>
+</div>
+</div>
+<div class="flex flex-col gap-1 pr-8 sm:pr-0">
+<p class="text-slate-700 dark:text-slate-200 text-base font-medium leading-snug">Sprint 4 Deadline is approaching</p>
+<p class="text-slate-500 dark:text-[#92a4c8] text-sm font-normal">Kanban Board • <span class="text-slate-400">Yesterday, 9:00 AM</span></p>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-2 sm:mt-0 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity justify-end">
+<button class="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">archive</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Load More / Footer -->
+<div class="flex justify-center pt-4">
+<button class="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium flex items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+                            Show older notifications
+                        </button>
+</div>
+<!-- Empty State (Hidden by default, structure provided) -->
+<!-- 
+                    <div class="flex flex-col items-center justify-center py-20 text-center">
+                         <div class="bg-slate-100 dark:bg-[#1e293b] p-6 rounded-full mb-4">
+                             <span class="material-symbols-outlined text-4xl text-slate-400 dark:text-slate-500">notifications_off</span>
+                         </div>
+                         <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">You're all caught up!</h3>
+                         <p class="text-slate-500 dark:text-[#92a4c8] max-w-xs">No new notifications at the moment. Enjoy your focused work time.</p>
+                    </div>
+                    -->
+</div>
+</div>
+</div>
+</div>
+</body></html>

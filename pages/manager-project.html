@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>DevHub Manager - Gerenciar Projetos - Selecionar Projeto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#6366f1", // Indigo 500
+                        secondary: "#10b981", // Emerald 500
+                        warning: "#f59e0b", // Amber 500
+                        danger: "#ef4444", // Red 500
+                        "background-light": "#f3f4f6", // Gray 100
+                        "background-dark": "#0a1a2f", // Deep Navy requested
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#112240", // Slightly lighter navy for cards
+                        "border-light": "#e5e7eb",
+                        "border-dark": "#233554", // Adjusted border for navy theme
+                        "text-main-light": "#111827",
+                        "text-main-dark": "#e6f1ff", // Light blue-white for contrast
+                        "text-muted-light": "#6b7280",
+                        "text-muted-dark": "#8892b0", // Muted slate blue
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark font-body transition-colors duration-300 antialiased h-screen overflow-hidden flex flex-col dark">
+    <header
+        class="h-20 px-6 md:px-12 border-b border-border-light dark:border-border-dark flex items-center justify-between bg-surface-light dark:bg-[#0a1a2f] flex-shrink-0 z-30">
+        <div class="flex items-center gap-4">
+            <div
+                class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/30">
+                D
+            </div>
+            <div>
+                <h1 class="text-xl font-bold text-text-main-light dark:text-white tracking-tight">DevHub Manager</h1>
+                <p class="text-xs text-text-muted-light dark:text-text-muted-dark">Bem-vindo de volta, Desenvolvedor</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <button
+                class="p-2 rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 transition-all"
+                onclick="document.documentElement.classList.toggle('dark')">
+                <span class="material-icons-outlined">brightness_medium</span>
+            </button>
+            <div class="h-8 w-[1px] bg-border-light dark:bg-border-dark hidden sm:block"></div>
+            <button
+                class="flex items-center gap-2 text-sm font-medium text-text-muted-light dark:text-text-muted-dark hover:text-primary dark:hover:text-white transition-colors">
+                <span class="material-icons-outlined">logout</span>
+                <span class="hidden sm:inline">Sair</span>
+            </button>
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-purple-600 p-[2px] cursor-pointer">
+                <img alt="Profile"
+                    class="rounded-full h-full w-full object-cover border-2 border-surface-light dark:border-surface-dark"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ0EmT3Gm3Rd160xnvwEmMb1I-IifzXrLAp83s9627YFZxM-XY0c8iFuDU5y1hKRDfX-VOd3hs4GefEnBqUtt60oGyFm4X3UHdB2CPVtkXm017TViPi3dCPP6Rct0BmneRdGfKrwgHaEsyHH30O1ithOp-E-d5ExvGlRiKgNt2L-Uovoc4abhtBoHBTZDvtL85Bvt0mXV12wSbkpLxEVM4BenOknkNN6iLzXoUf5mcEPX2QLPkegJU7cit4OcExyLCnoVzovbkVtbk" />
+            </div>
+        </div>
+    </header>
+    <main
+        class="flex-1 overflow-y-auto p-6 md:p-12 relative w-full max-w-7xl mx-auto bg-background-light dark:bg-background-dark">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <div>
+                <h2 class="text-3xl font-bold text-text-main-light dark:text-white mb-2">Projetos</h2>
+                <p class="text-text-muted-light dark:text-text-muted-dark max-w-2xl">Selecione um projeto para visualizar seu
+                    dashboard, kanban board, e repositórios.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="relative group">
+                    <span
+                        class="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark">
+                        <span class="material-icons-outlined text-[20px]">search</span>
+                    </span>
+                    <input
+                        class="pl-10 pr-4 py-2.5 bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-lg text-sm text-text-main-light dark:text-white focus:outline-none focus:ring-2 focus:ring-primary w-64 shadow-sm transition-all placeholder-gray-400 dark:placeholder-slate-500"
+                        placeholder="Pesquisar projetos..." type="text" />
+                </div>
+                <button
+                    class="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary text-white hover:bg-indigo-600 text-sm font-medium shadow-lg shadow-indigo-500/20 transition-all transform hover:-translate-y-0.5">
+                    <span class="material-icons-outlined text-[20px]">add</span>
+                    <span>Novo Projeto</span>
+                </button>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div
+                class="group relative bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark p-6 shadow-md hover:shadow-xl hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300 cursor-pointer flex flex-col h-full">
+                <div class="flex justify-between items-start mb-4">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 flex items-center justify-center text-blue-600 dark:text-blue-400">
+                        <span class="material-symbols-outlined text-3xl">dashboard</span>
+                    </div>
+                    <div class="flex -space-x-2">
+                        <img alt="Member"
+                            class="w-8 h-8 rounded-full border-2 border-surface-light dark:border-surface-dark"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX2NhJtJ4tp8GKQHBFbpK8WNY1qKVPzpS_xaCA6q_sY4oFA0Yd64zeBX5zgoNlxATg37AyTnnHsLqZTcfcSRjGKwIxc3-fOyNiq0pLiEEQ0wg8XnDyiyaR7sLt4qPbHI6hpC2X-k6sOOk5pljXadhF2b3ATTY18TuT9RRyqWnZc6r-YpMBiOKy9wfEXr7H1IW6R9F-GHUVrcUJYr3qCAWvazAACRhOTckYk4Yf9FsJB_XY8ilA1NJF6olE01ekXhtJTShgomX2aha7" />
+                        <img alt="Member"
+                            class="w-8 h-8 rounded-full border-2 border-surface-light dark:border-surface-dark"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnLs9boSTcpfY_1DycjbbDdj_OpeiWbVDPnV2St4vIAMkwUCaMOH0aW7EZCckpc9Ztg7_cL48otttmgPsi0VaZm8-5Kojj-8M-9Ws3HhP-V5fkERNwpp2Zbdc99BBSG-lSz-bW7m-y4RYTSWnkXuJslCQOXWFiG2LetUVZt1VUxV0ZEca-w9EITmWr-r3iGWN8fn6zbYmWtaeVxYrbM5SHWRQGrzYYuFGp0rvpa1NHXrSX_xx_kQJ2an3ixnyUrYZ8bdtVGLoxhJyN" />
+                        <div
+                            class="w-8 h-8 rounded-full border-2 border-surface-light dark:border-surface-dark bg-gray-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-gray-500 dark:text-gray-300">
+                            +3</div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h3
+                        class="text-xl font-bold text-text-main-light dark:text-white group-hover:text-primary transition-colors">
+                        SaaS Platform V2</h3>
+                    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Client: TechFlow Solutions
+                    </p>
+                </div>
+                <div class="mt-auto">
+                    <div class="flex justify-between items-end mb-2">
+                        <span
+                            class="text-xs font-semibold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark">Progress</span>
+                        <span class="text-sm font-bold text-primary">75%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div class="bg-primary h-full rounded-full transition-all duration-500" style="width: 75%">
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-4 pt-4 border-t border-border-light dark:border-border-dark">
+                        <div class="flex items-center gap-1.5 text-xs text-text-muted-light dark:text-text-muted-dark">
+                            <span class="material-symbols-outlined text-[16px]">calendar_month</span>
+                            <span>Due: Dec 24, 2023</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs text-secondary bg-secondary/10 px-2 py-1 rounded">
+                            <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                            <span>Active</span>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity pointer-events-none">
+                </div>
+            </div>
+            <div
+                class="group relative bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark p-6 shadow-md hover:shadow-xl hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300 cursor-pointer flex flex-col h-full">
+                <div class="flex justify-between items-start mb-4">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-purple-500/10 dark:bg-purple-500/20 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                        <span class="material-symbols-outlined text-3xl">shopping_cart</span>
+                    </div>
+                    <div class="flex -space-x-2">
+                        <img alt="Member"
+                            class="w-8 h-8 rounded-full border-2 border-surface-light dark:border-surface-dark"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN25d3nMuk7LNbgxgpWMbv5uubvXPvyWLM7VYC_i5mI_Cq_MUHfH-hgeeC4vGZqHWsHCb4hr9PJM5Ny7yDXzW30K2j6Vn9ri48JTgSKPhp4JT6cZ1gyvHk6tTVqQGQdcEy0MpUxSQJPPy34HYhgUx4ni9lrbOn5Bldfg4V4Pj4npS-wLRk1xKP1RTqUnKXdiPVHIFhRXcsRq4UbnkR8sUSHMHtWKbT04ocbGzkesNbpPC7m4_XUrgDHSedj9VdJrJmLkiMG_rqJTGt" />
+                        <img alt="Member"
+                            class="w-8 h-8 rounded-full border-2 border-surface-light dark:border-surface-dark"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjBXWpGS5Q68LRJEiwQ1qMUE4Gk1zbnU1AjC7muBhw0tkATts--J9KnCnK7Uh3kHLGGH9OBM9_5J16hza2YQYY_kK-q-bKJGSymPIjN-unCU02WHRcTxnBvAt3AFD7962XEzj5L2whEGmgt6Xk-ztiOdexAH4TMj4RWrsDWfG2_vLbw8MBEjNK81LCv4HsZKHGV1vEU0VlpiWamrUGn9pH-y4Z0ONcleRp9d_iHXBoCG6zkv4VZF1SLRyBx9KbdVxqYi4r6hhCQSId" />
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h3
+                        class="text-xl font-bold text-text-main-light dark:text-white group-hover:text-primary transition-colors">
+                        E-commerce Mobile App</h3>
+                    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Client: Urban Styles</p>
+                </div>
+                <div class="mt-auto">
+                    <div class="flex justify-between items-end mb-2">
+                        <span
+                            class="text-xs font-semibold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark">Progress</span>
+                        <span class="text-sm font-bold text-purple-500">32%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div class="bg-purple-500 h-full rounded-full transition-all duration-500" style="width: 32%">
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-4 pt-4 border-t border-border-light dark:border-border-dark">
+                        <div class="flex items-center gap-1.5 text-xs text-text-muted-light dark:text-text-muted-dark">
+                            <span class="material-symbols-outlined text-[16px]">calendar_month</span>
+                            <span>Due: Feb 15, 2024</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs text-warning bg-warning/10 px-2 py-1 rounded">
+                            <span class="w-2 h-2 rounded-full bg-warning"></span>
+                            <span>Planning</span>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity pointer-events-none">
+                </div>
+            </div>
+            <div
+                class="group relative bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark p-6 shadow-md hover:shadow-xl hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300 cursor-pointer flex flex-col h-full">
+                <div class="flex justify-between items-start mb-4">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-teal-500/10 dark:bg-teal-500/20 flex items-center justify-center text-teal-600 dark:text-teal-400">
+                        <span class="material-symbols-outlined text-3xl">analytics</span>
+                    </div>
+                    <div class="flex -space-x-2">
+                        <img alt="Member"
+                            class="w-8 h-8 rounded-full border-2 border-surface-light dark:border-surface-dark"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHUl2Xr3MBbbvh-06ySHQXMk2eAT_d0C6D_qYJR4J9AcbWYwiwGOn2T8f6FCgs8Hk5PVrh-uDdLo5V-6WKIFYreAALXV4CWTSqGgfjW-Y8MbN5tMBIi1fjGgRzgb_xp_xVrP0KOjrgXdwEpFiPBcUviJnx_WOCIHMt-73Da_0dPTKsNxBCs4-tjQRAOGjSWw_2ksCddUGOWtJJ3uTkAIh38pN0IdVbs9F0BSctVEal4GJIKWKN1vsi7Y47OxE0Xo9i8q6zwIRcRxz3" />
+                        <div
+                            class="w-8 h-8 rounded-full border-2 border-surface-light dark:border-surface-dark bg-gray-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-gray-500 dark:text-gray-300">
+                            +1</div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h3
+                        class="text-xl font-bold text-text-main-light dark:text-white group-hover:text-primary transition-colors">
+                        Internal Analytics Dashboard</h3>
+                    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Client: Internal Tools</p>
+                </div>
+                <div class="mt-auto">
+                    <div class="flex justify-between items-end mb-2">
+                        <span
+                            class="text-xs font-semibold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark">Progress</span>
+                        <span class="text-sm font-bold text-teal-500">90%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div class="bg-teal-500 h-full rounded-full transition-all duration-500" style="width: 90%">
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-4 pt-4 border-t border-border-light dark:border-border-dark">
+                        <div class="flex items-center gap-1.5 text-xs text-text-muted-light dark:text-text-muted-dark">
+                            <span class="material-symbols-outlined text-[16px]">calendar_month</span>
+                            <span>Due: Oct 30, 2023</span>
+                        </div>
+                        <div class="flex items-center gap-1.5 text-xs text-secondary bg-secondary/10 px-2 py-1 rounded">
+                            <span class="w-2 h-2 rounded-full bg-secondary"></span>
+                            <span>Review</span>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 rounded-xl transition-opacity pointer-events-none">
+                </div>
+            </div>
+            <div
+                class="group relative bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark p-6 shadow-md hover:shadow-xl hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-300 cursor-pointer flex flex-col h-full opacity-75 hover:opacity-100">
+                <div class="flex justify-between items-start mb-4">
+                    <div
+                        class="w-12 h-12 rounded-lg bg-gray-500/10 dark:bg-gray-500/20 flex items-center justify-center text-gray-600 dark:text-gray-400">
+                        <span class="material-symbols-outlined text-3xl">inventory_2</span>
+                    </div>
+                    <div class="flex -space-x-2">
+                        <div
+                            class="w-8 h-8 rounded-full border-2 border-surface-light dark:border-surface-dark bg-gray-200 dark:bg-slate-700 flex items-center justify-center text-xs font-bold text-gray-500 dark:text-gray-300">
+                            U</div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h3
+                        class="text-xl font-bold text-text-main-light dark:text-white group-hover:text-primary transition-colors">
+                        Legacy CRM Migration</h3>
+                    <p class="text-sm text-text-muted-light dark:text-text-muted-dark mt-1">Client: FinCorp</p>
+                </div>
+                <div class="mt-auto">
+                    <div class="flex justify-between items-end mb-2">
+                        <span
+                            class="text-xs font-semibold uppercase tracking-wider text-text-muted-light dark:text-text-muted-dark">Progress</span>
+                        <span class="text-sm font-bold text-gray-500">100%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                        <div class="bg-gray-500 h-full rounded-full transition-all duration-500" style="width: 100%">
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-4 pt-4 border-t border-border-light dark:border-border-dark">
+                        <div class="flex items-center gap-1.5 text-xs text-text-muted-light dark:text-text-muted-dark">
+                            <span class="material-symbols-outlined text-[16px]">check_circle</span>
+                            <span>Completed: Sep 15, 2023</span>
+                        </div>
+                        <div
+                            class="flex items-center gap-1.5 text-xs text-text-muted-light bg-gray-100 dark:bg-slate-800 px-2 py-1 rounded">
+                            <span class="w-2 h-2 rounded-full bg-gray-500"></span>
+                            <span>Archived</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="group relative bg-surface-light dark:bg-surface-dark/50 rounded-xl border-2 border-dashed border-border-light dark:border-border-dark p-6 flex flex-col items-center justify-center text-center cursor-pointer hover:border-primary hover:bg-primary/5 transition-all duration-300 min-h-[250px]">
+                <div
+                    class="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+                    <span class="material-icons-outlined text-4xl">add</span>
+                </div>
+                <h3 class="text-lg font-semibold text-text-main-light dark:text-white mb-2">Create New Project</h3>
+                <p class="text-sm text-text-muted-light dark:text-text-muted-dark max-w-xs">Start a fresh workspace for
+                    your new idea or client request.</p>
+            </div>
+        </div>
+        <div class="mt-12 flex justify-center">
+            <p class="text-xs text-text-muted-light dark:text-text-muted-dark flex items-center gap-2">
+                <span class="material-icons-outlined text-sm">info</span>
+                You have 4 active projects out of 10 allowed in your current plan.
+            </p>
+        </div>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,195 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id              String   @id @default(uuid())
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  deletedAt       DateTime? @map("deleted_at")
+  name            String
+  email           String   @unique
+  passwordHash    String?  @map("password_hash")
+  provider        String   @default("local")
+  providerId      String?  @map("provider_id")
+  avatarUrl       String?  @map("avatar_url")
+  refreshTokenHash String? @map("refresh_token_hash")
+
+  ownedOrganizations Organization[] @relation("OrganizationOwner")
+  memberships        OrganizationMember[]
+  createdProjects    Project[] @relation("ProjectCreator")
+  assignedTasks      Task[]
+  notes              Note[]
+  notifications      Notification[]
+
+  @@map("users")
+}
+
+model Organization {
+  id                String   @id @default(uuid())
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+  deletedAt         DateTime? @map("deleted_at")
+  name              String
+  slug              String   @unique
+  ownerId           String?  @map("owner_id")
+  trialStartsAt     DateTime? @map("trial_starts_at")
+  trialEndsAt       DateTime? @map("trial_ends_at")
+  subscriptionStatus String  @default("trial") @map("subscription_status")
+  stripeCustomerId  String?  @map("stripe_customer_id")
+
+  owner         User?                @relation("OrganizationOwner", fields: [ownerId], references: [id], onDelete: SetNull)
+  members       OrganizationMember[]
+  projects      Project[]
+  tasks         Task[]
+  subscriptions Subscription[]
+
+  @@map("organizations")
+}
+
+model OrganizationMember {
+  id             String   @id @default(uuid())
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+  deletedAt      DateTime? @map("deleted_at")
+  organizationId String   @map("organization_id")
+  userId         String   @map("user_id")
+  role           String   @default("developer")
+  invitedById    String?  @map("invited_by_id")
+  joinedAt       DateTime? @map("joined_at")
+  isActive       Boolean  @default(true) @map("is_active")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user         User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+  @@map("organization_members")
+}
+
+model Project {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
+  organizationId String  @map("organization_id")
+  createdById   String?  @map("created_by_id")
+  name          String
+  description   String?
+  status        String   @default("em_andamento")
+  dueDate       DateTime? @map("due_date")
+  visibility    String   @default("internal")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  createdBy    User?        @relation("ProjectCreator", fields: [createdById], references: [id], onDelete: SetNull)
+  tasks        Task[]
+  notes        Note[]
+
+  @@map("projects")
+}
+
+model Task {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
+  projectId     String   @map("project_id")
+  organizationId String  @map("organization_id")
+  assigneeId    String?  @map("assignee_id")
+  title         String
+  description   String?
+  statusColumn  String   @default("backlog") @map("status_column")
+  priority      String   @default("medium")
+  dueDate       DateTime? @map("due_date")
+  tags          Json?
+  order         Int      @default(0)
+
+  project      Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  assignee     User?        @relation(fields: [assigneeId], references: [id], onDelete: SetNull)
+
+  @@index([organizationId])
+  @@index([projectId])
+  @@map("tasks")
+}
+
+model Invitation {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
+  organizationId String  @map("organization_id")
+  projectId     String?  @map("project_id")
+  email         String
+  role          String
+  token         String   @unique
+  expiresAt     DateTime @map("expires_at")
+  acceptedAt    DateTime? @map("accepted_at")
+  status        String   @default("pending")
+
+  @@map("invitations")
+}
+
+model Notification {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
+  userId        String   @map("user_id")
+  organizationId String  @map("organization_id")
+  type          String
+  title         String
+  body          String?
+  meta          Json?
+  readAt        DateTime? @map("read_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+model Note {
+  id            String   @id @default(uuid())
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
+  projectId     String   @map("project_id")
+  organizationId String  @map("organization_id")
+  createdById   String?  @map("created_by_id")
+  title         String
+  content       String
+  tags          Json?
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  createdBy User?   @relation(fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([organizationId])
+  @@index([projectId])
+  @@map("notes")
+}
+
+model Subscription {
+  id                  String   @id @default(uuid())
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+  deletedAt           DateTime? @map("deleted_at")
+  organizationId      String   @map("organization_id")
+  plan                String
+  status              String
+  currentPeriodStart   DateTime? @map("current_period_start")
+  currentPeriodEnd     DateTime? @map("current_period_end")
+  trialEnd             DateTime? @map("trial_end")
+  stripeSubscriptionId String?   @map("stripe_subscription_id")
+  stripePriceId        String?   @map("stripe_price_id")
+  cancelAtPeriodEnd    Boolean   @default(false) @map("cancel_at_period_end")
+
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
+}

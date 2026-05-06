@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>DevHub Manager - Repositório de Código</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;family=Noto+Sans:wght@300..800&amp;display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2463eb",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "surface-dark": "#1c1f27", // Slightly lighter than background-dark
+                        "surface-highlight": "#282d39", // For hover states or borders
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white overflow-hidden selection:bg-primary/30">
+    <div class="flex h-screen w-full">
+        <!-- Sidebar Navigation -->
+        <aside
+            class="w-72 bg-[#111318] dark:bg-[#0d1017] border-r border-[#282d39] flex flex-col justify-between shrink-0 h-full overflow-y-auto z-20">
+            <div class="flex flex-col gap-6 p-4">
+                <!-- User Profile / App Header -->
+                <div class="flex gap-3 items-center px-2">
+                    <div class="bg-center bg-no-repeat bg-cover rounded-full size-10 shrink-0 border border-[#282d39]"
+                        data-alt="User profile avatar with abstract gradient"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD4_MSa4pwbHo9MjKZcrXXSaeInMtkESVIgcTpVBg-9gJp3Efjb9fuQR5PXRe_DxBAfCJJJf1omQxQeukK3kqLfwxN0ddZcZHy0RUdHVy-tlFuIiXhMYbwiBUtKo8-RvEyevhkgqP_fBCjFu_ZPF3MXBLw25hdmi-3D_e13bV3LS_vp5ohJY231VzeBIEPLUDqAnftzH8hDbNon-UTh58Ih5cDT2TCLwNZmFc96FLPjioZMx5I8nHKM2CQgLJImK7CLgIJwE8jvF0B0");'>
+                    </div>
+                    <div class="flex flex-col overflow-hidden">
+                        <h1 class="text-white text-base font-bold leading-normal truncate">DevHub Manager</h1>
+                        <p class="text-[#9da6b9] text-xs font-normal leading-normal truncate">Gestão de Projetos Ágeis
+                        </p>
+                    </div>
+                </div>
+                <!-- Navigation Links -->
+                <nav class="flex flex-col gap-2">
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#9da6b9] hover:bg-[#1c1f27] hover:text-white transition-colors group"
+                        href="#">
+                        <span class="material-symbols-outlined text-[#9da6b9] group-hover:text-white"
+                            style="font-size: 24px;">dashboard</span>
+                        <p class="text-sm font-medium leading-normal">Visão Geral</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#9da6b9] hover:bg-[#1c1f27] hover:text-white transition-colors group"
+                        href="#">
+                        <span class="material-symbols-outlined text-[#9da6b9] group-hover:text-white"
+                            style="font-size: 24px;">folder</span>
+                        <p class="text-sm font-medium leading-normal">Gerenciar Projetos</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#9da6b9] hover:bg-[#1c1f27] hover:text-white transition-colors group"
+                        href="#">
+                        <span class="material-symbols-outlined text-[#9da6b9] group-hover:text-white"
+                            style="font-size: 24px;">view_kanban</span>
+                        <p class="text-sm font-medium leading-normal">Gerenciar Tarefas</p>
+                    </a>
+                    <!-- Active Link -->
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary text-white shadow-lg shadow-primary/20"
+                        href="#">
+                        <span class="material-symbols-outlined text-white" style="font-size: 24px;">terminal</span>
+                        <p class="text-sm font-medium leading-normal">Repositório de Código</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#9da6b9] hover:bg-[#1c1f27] hover:text-white transition-colors group"
+                        href="#">
+                        <span class="material-symbols-outlined text-[#9da6b9] group-hover:text-white"
+                            style="font-size: 24px;">group</span>
+                        <p class="text-sm font-medium leading-normal">Equipe</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#9da6b9] hover:bg-[#1c1f27] hover:text-white transition-colors group"
+                        href="#">
+                        <span class="material-symbols-outlined text-[#9da6b9] group-hover:text-white"
+                            style="font-size: 24px;">description</span>
+                        <p class="text-sm font-medium leading-normal">Anotações</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#9da6b9] hover:bg-[#1c1f27] hover:text-white transition-colors group"
+                        href="#">
+                        <span class="material-symbols-outlined text-[#9da6b9] group-hover:text-white"
+                            style="font-size: 24px;">settings</span>
+                        <p class="text-sm font-medium leading-normal">Configurações</p>
+                    </a>
+                </nav>
+            </div>
+            <div class="p-4 border-t border-[#282d39]">
+                <button
+                    class="flex w-full items-center gap-3 px-3 py-2.5 rounded-lg text-[#9da6b9] hover:bg-[#1c1f27] hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-[#9da6b9]" style="font-size: 24px;">dark_mode</span>
+                    <p class="text-sm font-medium leading-normal">Dark Mode</p>
+                </button>
+            </div>
+        </aside>
+        <!-- Main Content Area -->
+        <main class="flex-1 flex flex-col min-w-0 bg-background-light dark:bg-background-dark relative overflow-hidden">
+            <!-- Page Header -->
+            <header
+                class="flex flex-col gap-4 border-b border-[#282d39] bg-[#111318]/95 dark:bg-[#111621]/95 backdrop-blur-sm z-10 px-6 py-5 shrink-0">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex flex-col gap-1">
+                        <h2 class="text-white text-2xl font-bold leading-tight tracking-tight">Code Repositories</h2>
+                        <p class="text-[#9da6b9] text-sm font-normal">Manage connected repositories, branches, and view
+                            status.</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#1c1f27] border border-[#282d39]">
+                            <span class="relative flex h-2.5 w-2.5">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                            </span>
+                            <span class="text-xs font-medium text-[#9da6b9]">Conectado ao GitHub</span>
+                        </div>
+                        <button
+                            class="flex items-center justify-center gap-2 rounded-xl h-10 px-4 bg-[#282d39] hover:bg-[#323846] text-white text-sm font-bold transition-colors">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+                            <span>Adicionar Repositório</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            <!-- Master-Detail Content Grid -->
+            <div class="flex flex-1 overflow-hidden p-6 gap-6">
+                <!-- Left Panel: Repo List -->
+                <div
+                    class="w-full lg:w-[380px] flex flex-col bg-surface-dark rounded-2xl border border-[#282d39] overflow-hidden shrink-0 shadow-xl shadow-black/20">
+                    <!-- Search & Filter -->
+                    <div class="p-4 border-b border-[#282d39] flex flex-col gap-3">
+                        <div class="relative w-full">
+                            <span
+                                class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-[#9da6b9]"
+                                style="font-size: 20px;">search</span>
+                            <input
+                                class="w-full h-10 pl-10 pr-4 bg-[#111318] border border-[#3b4354] rounded-lg text-white text-sm placeholder:text-[#64748b] focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all"
+                                placeholder="Search repositories..." />
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="flex-1 h-8 text-xs font-medium text-white bg-primary rounded-lg">All
+                                Repos</button>
+                            <button
+                                class="flex-1 h-8 text-xs font-medium text-[#9da6b9] hover:text-white bg-[#282d39] hover:bg-[#323846] rounded-lg transition-colors">Private</button>
+                            <button
+                                class="flex-1 h-8 text-xs font-medium text-[#9da6b9] hover:text-white bg-[#282d39] hover:bg-[#323846] rounded-lg transition-colors">Public</button>
+                        </div>
+                    </div>
+                    <!-- List Items -->
+                    <div class="flex-1 overflow-y-auto custom-scrollbar">
+                        <!-- Item 1 (Active) -->
+                        <div
+                            class="flex items-center gap-4 p-4 border-b border-[#282d39] bg-primary/10 border-l-4 border-l-primary cursor-pointer hover:bg-primary/5 transition-colors">
+                            <div
+                                class="flex items-center justify-center rounded-lg bg-[#282d39] text-blue-400 shrink-0 size-10 border border-[#3b4354]">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">javascript</span>
+                            </div>
+                            <div class="flex flex-col flex-1 min-w-0">
+                                <div class="flex justify-between items-center mb-0.5">
+                                    <p class="text-white text-sm font-bold truncate">devhub-frontend</p>
+                                    <span class="material-symbols-outlined text-[#9da6b9]"
+                                        style="font-size: 16px;">lock</span>
+                                </div>
+                                <p class="text-[#9da6b9] text-xs truncate">Updated 2h ago • Main Branch</p>
+                            </div>
+                        </div>
+                        <!-- Item 2 -->
+                        <div
+                            class="flex items-center gap-4 p-4 border-b border-[#282d39] cursor-pointer hover:bg-[#282d39]/50 transition-colors">
+                            <div
+                                class="flex items-center justify-center rounded-lg bg-[#282d39] text-yellow-400 shrink-0 size-10 border border-[#3b4354]">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">data_object</span>
+                            </div>
+                            <div class="flex flex-col flex-1 min-w-0">
+                                <div class="flex justify-between items-center mb-0.5">
+                                    <p class="text-white text-sm font-medium truncate">devhub-api-service</p>
+                                    <span class="material-symbols-outlined text-[#9da6b9]"
+                                        style="font-size: 16px;">lock</span>
+                                </div>
+                                <p class="text-[#9da6b9] text-xs truncate">Atualizado 1 dia atrás • Python</p>
+                            </div>
+                        </div>
+                        <!-- Item 3 -->
+                        <div
+                            class="flex items-center gap-4 p-4 border-b border-[#282d39] cursor-pointer hover:bg-[#282d39]/50 transition-colors">
+                            <div
+                                class="flex items-center justify-center rounded-lg bg-[#282d39] text-purple-400 shrink-0 size-10 border border-[#3b4354]">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">design_services</span>
+                            </div>
+                            <div class="flex flex-col flex-1 min-w-0">
+                                <div class="flex justify-between items-center mb-0.5">
+                                    <p class="text-white text-sm font-medium truncate">design-system</p>
+                                    <span class="material-symbols-outlined text-[#9da6b9]"
+                                        style="font-size: 16px;">public</span>
+                                </div>
+                                <p class="text-[#9da6b9] text-xs truncate">Updated 3d ago • Figma Token</p>
+                            </div>
+                        </div>
+                        <!-- Item 4 -->
+                        <div
+                            class="flex items-center gap-4 p-4 border-b border-[#282d39] cursor-pointer hover:bg-[#282d39]/50 transition-colors">
+                            <div
+                                class="flex items-center justify-center rounded-lg bg-[#282d39] text-orange-400 shrink-0 size-10 border border-[#3b4354]">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">html</span>
+                            </div>
+                            <div class="flex flex-col flex-1 min-w-0">
+                                <div class="flex justify-between items-center mb-0.5">
+                                    <p class="text-white text-sm font-medium truncate">landing-page-v2</p>
+                                    <span class="material-symbols-outlined text-[#9da6b9]"
+                                        style="font-size: 16px;">lock</span>
+                                </div>
+                                <p class="text-[#9da6b9] text-xs truncate">Updated 1w ago • HTML/Tailwind</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Panel: Details (Scrollable) -->
+                <div class="flex-1 flex flex-col gap-6 overflow-y-auto custom-scrollbar pb-6 min-w-[500px]">
+                    <!-- Selected Repo Header Card -->
+                    <div class="bg-surface-dark border border-[#282d39] rounded-2xl p-6 shadow-sm">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="flex gap-4">
+                                <div class="bg-center bg-no-repeat bg-cover rounded-xl size-16 shrink-0 border border-[#3b4354]"
+                                    data-alt="Repository logo placeholder abstract shape"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAQNdqukd_MB08uTH0cUGTVVfU2H6I6DpYX484Igj1tREhA6Q-ZIxHpT8Xx8GIR0-6s8fGQd7rIpZQHyB2zRkxPODQQS3n5WPRJUma_sFPhVDO35BzquRAmSSa6KXxM2Hwx9xID3Ms3KiFVxdVNIU40NpHPEkiBAFthAQIxy5oJoVT2KLTVZ9BjL86fDJQLL35rz95E36ISWruAlRXJYvKeuEmPFwqPpxx58k6cKQ85eVSi1cewYb5x4aD_AQ5SaO1Bchto6G0CxsT3");'>
+                                </div>
+                                <div>
+                                    <div class="flex items-center gap-3 mb-1">
+                                        <h1 class="text-2xl font-bold text-white">devhub-frontend</h1>
+                                        <span
+                                            class="px-2 py-0.5 rounded text-[10px] font-bold bg-primary/20 text-blue-300 border border-primary/30 uppercase tracking-wide">Private</span>
+                                    </div>
+                                    <p class="text-[#9da6b9] text-sm max-w-lg">Main frontend application for the DevHub
+                                        platform. Built with React, Next.js, and Tailwind CSS.</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-2 items-end">
+                                <button
+                                    class="flex items-center gap-2 px-4 py-2 bg-[#282d39] hover:bg-[#323846] text-white text-sm font-medium rounded-lg border border-[#3b4354] transition-colors">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">open_in_new</span>
+                                    View on GitHub
+                                </button>
+                                <p class="text-xs text-[#64748b]">Last sync: 2 min ago</p>
+                            </div>
+                        </div>
+                        <!-- Quick Actions Bar -->
+                        <div class="flex items-center gap-3 pt-4 border-t border-[#282d39]">
+                            <button
+                                class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-blue-600 text-white text-sm font-bold rounded-lg shadow-lg shadow-blue-900/20 transition-all">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">sync</span>
+                                Sync Repository
+                            </button>
+                            <button
+                                class="flex items-center gap-2 px-4 py-2 bg-[#282d39] hover:bg-[#323846] text-white text-sm font-bold rounded-lg transition-colors">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">call_split</span>
+                                Create Branch
+                            </button>
+                            <button
+                                class="flex items-center gap-2 px-4 py-2 bg-[#282d39] hover:bg-[#323846] text-white text-sm font-bold rounded-lg transition-colors">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">compare_arrows</span>
+                                Compare
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Stats Overview -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div
+                            class="bg-surface-dark border border-[#282d39] rounded-xl p-5 flex items-center gap-4 hover:border-primary/50 transition-colors cursor-default group">
+                            <div
+                                class="size-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500/20 transition-colors">
+                                <span class="material-symbols-outlined">call_merge</span>
+                            </div>
+                            <div>
+                                <p class="text-[#9da6b9] text-xs font-medium uppercase tracking-wider">Open PRs</p>
+                                <p class="text-2xl font-bold text-white">12</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-surface-dark border border-[#282d39] rounded-xl p-5 flex items-center gap-4 hover:border-primary/50 transition-colors cursor-default group">
+                            <div
+                                class="size-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-500/20 transition-colors">
+                                <span class="material-symbols-outlined">account_tree</span>
+                            </div>
+                            <div>
+                                <p class="text-[#9da6b9] text-xs font-medium uppercase tracking-wider">Active Branches
+                                </p>
+                                <p class="text-2xl font-bold text-white">5</p>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-surface-dark border border-[#282d39] rounded-xl p-5 flex items-center gap-4 hover:border-primary/50 transition-colors cursor-default group">
+                            <div
+                                class="size-12 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:bg-purple-500/20 transition-colors">
+                                <span class="material-symbols-outlined">history</span>
+                            </div>
+                            <div>
+                                <p class="text-[#9da6b9] text-xs font-medium uppercase tracking-wider">Total Commits</p>
+                                <p class="text-2xl font-bold text-white">1,432</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Branch Management Table -->
+                    <div class="flex flex-col gap-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-bold text-white">Active Branches</h3>
+                            <button class="text-sm text-primary font-bold hover:underline">View All</button>
+                        </div>
+                        <div class="bg-surface-dark border border-[#282d39] rounded-xl overflow-hidden">
+                            <table class="w-full text-left border-collapse">
+                                <thead class="bg-[#111318] border-b border-[#282d39]">
+                                    <tr>
+                                        <th class="px-6 py-4 text-xs font-bold text-[#9da6b9] uppercase tracking-wider">
+                                            Branch Name</th>
+                                        <th class="px-6 py-4 text-xs font-bold text-[#9da6b9] uppercase tracking-wider">
+                                            Status</th>
+                                        <th class="px-6 py-4 text-xs font-bold text-[#9da6b9] uppercase tracking-wider">
+                                            Last Commit</th>
+                                        <th class="px-6 py-4 text-xs font-bold text-[#9da6b9] uppercase tracking-wider">
+                                            Author</th>
+                                        <th
+                                            class="px-6 py-4 text-xs font-bold text-[#9da6b9] uppercase tracking-wider text-right">
+                                            Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-[#282d39]">
+                                    <tr class="hover:bg-[#282d39]/30 transition-colors group">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <span class="material-symbols-outlined text-[#9da6b9]"
+                                                    style="font-size: 18px;">call_split</span>
+                                                <span class="text-white text-sm font-medium">main</span>
+                                                <span
+                                                    class="px-2 py-0.5 rounded-full text-[10px] bg-slate-700 text-slate-300 font-medium ml-2">Default</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <div class="size-2 rounded-full bg-emerald-500"></div>
+                                                <span class="text-emerald-400 text-sm">Up to date</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex flex-col">
+                                                <span class="text-white text-sm">c4f2a9</span>
+                                                <span class="text-[#64748b] text-xs">2 hours ago</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex -space-x-2">
+                                                <div class="size-6 rounded-full border border-surface-dark bg-cover"
+                                                    data-alt="Avatar 1"
+                                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAALAZkfe3vV8It4XhYGyPpy4owLNemVHD1VBkoCKRrpgv2DfK6TGGb0cRwa5WVO4nMAZdp9pKCKjIdNl14xFEZCvE-ryNQuspdOcF3s5MGc7508fV6_vz_Ab1HHgVbbgf-TKG-03fmVCaASsaUaFiT_JYCCzx9e-AYzRXboyWQl1eFeLmexigC06sbvMTV3lmn7GKOjsWrx5J1MyFdFpmwn7LCP54caymukP4ArlrgKK05lIsCGT4LEFIGVgOmXCuMVUAAdY5RxECA");'>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-right">
+                                            <button class="text-[#9da6b9] hover:text-white transition-colors">
+                                                <span class="material-symbols-outlined"
+                                                    style="font-size: 20px;">more_horiz</span>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-[#282d39]/30 transition-colors group">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <span class="material-symbols-outlined text-[#9da6b9]"
+                                                    style="font-size: 18px;">call_split</span>
+                                                <span class="text-white text-sm font-medium">feature/new-login-ui</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <span class="material-symbols-outlined text-blue-400"
+                                                    style="font-size: 16px;">arrow_upward</span>
+                                                <span class="text-blue-400 text-sm">2 ahead</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex flex-col">
+                                                <span class="text-white text-sm">a1b2c3</span>
+                                                <span class="text-[#64748b] text-xs">5 mins ago</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex -space-x-2">
+                                                <div class="size-6 rounded-full border border-surface-dark bg-cover"
+                                                    data-alt="Avatar 2"
+                                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDZIM9wQ_TOODP-WpZPOeBWV8ZlXCF3LRYdzbvQ2qMRddQXvnXHMRM1F1Zl6dp4uNiZ5LDyd_EwZB7mB3FjYIFXPZVp65OO3iDmFYFxYuNCbHORxkqJEMA2sXs8FNPEC8tKAyJJ7IxGy8mn3mSZ0OMCCLA2Q6eGV6JJxTtgSyIjpZlzumSHcqovo-f6eEiQ1ZmiLrHaRNVH_fZmJYRx6ZiaMLk3vfQVWos0PIOOSg1W4w_3hCmFVd1Vn1GipyHG_OQkj01pF80cgurH");'>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-right">
+                                            <button
+                                                class="opacity-0 group-hover:opacity-100 bg-[#282d39] hover:bg-primary text-white text-xs px-3 py-1.5 rounded-lg transition-all">Create
+                                                PR</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="hover:bg-[#282d39]/30 transition-colors group">
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <span class="material-symbols-outlined text-[#9da6b9]"
+                                                    style="font-size: 18px;">call_split</span>
+                                                <span class="text-white text-sm font-medium">fix/nav-bar-bug</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <span class="material-symbols-outlined text-orange-400"
+                                                    style="font-size: 16px;">arrow_downward</span>
+                                                <span class="text-orange-400 text-sm">1 behind</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex flex-col">
+                                                <span class="text-white text-sm">9d8e7f</span>
+                                                <span class="text-[#64748b] text-xs">1 day ago</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex -space-x-2">
+                                                <div class="size-6 rounded-full border border-surface-dark bg-cover"
+                                                    data-alt="Avatar 3"
+                                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuApNFMaOilVhpFMgd-VONsyThVMjQpyZUk1FqFGK8H4vmzq6YLbP6F9NAE9WBifTyl3Keq4bqm4-3yNhBAV2QksK8mRZKIvYwSlto44HdEHGXKFtadUaLIjRMroQ6IJTw2Sl8e4OKJBWdRgtmG4315lhPQi3Kz1TKMjte8R4rSBhPmQ8WG0w_KkMhW2RoH3cR304uC_8wBphspbJ5IHTD9g4ZHZcwqRC_7vN4m05bKEwllm5nLSk6Zu8v29onuYpCTAoiGFl9lLwThc");'>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-right">
+                                            <button
+                                                class="opacity-0 group-hover:opacity-100 bg-[#282d39] hover:bg-primary text-white text-xs px-3 py-1.5 rounded-lg transition-all">Pull</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Recent Pull Requests -->
+                    <div class="flex flex-col gap-4">
+                        <h3 class="text-lg font-bold text-white">Needs Review</h3>
+                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+                            <!-- PR Card 1 -->
+                            <div
+                                class="bg-surface-dark border border-[#282d39] p-4 rounded-xl flex gap-3 hover:border-[#3b4354] transition-colors cursor-pointer">
+                                <div class="mt-1">
+                                    <span class="material-symbols-outlined text-green-500"
+                                        style="font-size: 20px;">check_circle</span>
+                                </div>
+                                <div class="flex flex-col flex-1">
+                                    <p class="text-white text-sm font-bold mb-1">Update dependencies to v2.0</p>
+                                    <p class="text-[#9da6b9] text-xs mb-3">#432 opened yesterday by @alexdev</p>
+                                    <div class="flex items-center gap-2">
+                                        <span
+                                            class="px-2 py-1 rounded bg-[#282d39] text-[10px] text-[#9da6b9] border border-[#3b4354]">chore</span>
+                                        <div class="flex -space-x-1 ml-auto">
+                                            <div class="size-5 rounded-full border border-surface-dark bg-cover bg-center"
+                                                data-alt="Reviewer 1"
+                                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDEttfYW-Bzcx0O-HCUYfUPtkSYIVQ6FUJulZULKLUbdSnvTUo84HLbkr0QkfuW2o-SfjYIw4Y7DXhh1fgMa1-k7zQpBxo7OoBGyOh3Rc5kG8f2TlvgV6DGi1TR5e9d34Cgbaj5kOrVvCebeZScCV2JVjqHeg_fejZ152J4-xLi1Hr4yyqqa-U_28HOOgSFdur4ChfBHv8WW_iOeVzGIAD0bl7AcyFRKwSnce8gdqB19eD5KXoFpiXgmp43ls-4bxR_elsIab6nmB7F");'>
+                                            </div>
+                                            <div class="size-5 rounded-full border border-surface-dark bg-cover bg-center"
+                                                data-alt="Reviewer 2"
+                                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDgmGg91w42MFOzFNsOEMeoQ6KUovFhQzOMPUBmvFIhdBjpSpzTimxaP18Lt84KC6deeC0ppDp-Cv-chtIP9pmnr7CflRbGFm_HccooE0q2SQ_8lyKkANKPrdkxjlhMtZHJy7iEsrK2nw9KEkopu-MdnKBVnGTCMM5rRJFeN1ThXs3Afs1JsGFFxQ_axGH7MZgW7ZiZRKHyA_HebyDlZY6yWGFUbIQpHBVzRQdnAp9p-Z2u8z3aW4YgqhamdQ04nuEdxM6IYHcW4D08");'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- PR Card 2 -->
+                            <div
+                                class="bg-surface-dark border border-[#282d39] p-4 rounded-xl flex gap-3 hover:border-[#3b4354] transition-colors cursor-pointer">
+                                <div class="mt-1">
+                                    <span class="material-symbols-outlined text-yellow-500"
+                                        style="font-size: 20px;">schedule</span>
+                                </div>
+                                <div class="flex flex-col flex-1">
+                                    <p class="text-white text-sm font-bold mb-1">Implement new dark mode toggle</p>
+                                    <p class="text-[#9da6b9] text-xs mb-3">#435 opened 4h ago by @sarah_ui</p>
+                                    <div class="flex items-center gap-2">
+                                        <span
+                                            class="px-2 py-1 rounded bg-[#282d39] text-[10px] text-[#9da6b9] border border-[#3b4354]">feature</span>
+                                        <span
+                                            class="px-2 py-1 rounded bg-[#282d39] text-[10px] text-[#9da6b9] border border-[#3b4354]">ui</span>
+                                        <div class="flex -space-x-1 ml-auto">
+                                            <div class="size-5 rounded-full border border-surface-dark bg-cover bg-center"
+                                                data-alt="Reviewer 3"
+                                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAmIU33j35tkc4REqDsjDMBGw8YJrd8Gd7mQAFdjjGpnNUBNpmTMWwdeEkjKY78IZMRHkXrFe1MfXAkRpsPNksAwBVBAN-pyFbP_qGpSyAoehnWt8Sv8g6X2w0668MdOggjX-xNn2uM4g_wkRNV24SWuWy3pTCCjeybcMh21hmbQNhvz5kUG_KFGlDzxE4ZfmxPysrmX-EhEw_dxGsT5kKogXXpf1QNkIzZJZIAkqlMY_ER07X05u63s0T8-G4aRoRifeRXGEXxRHPq");'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <style>
+        /* Custom scrollbar for webkit browsers */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #282d39;
+            border-radius: 20px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background-color: #3b4354;
+        }
+    </style>
+</body>
+
+</html>

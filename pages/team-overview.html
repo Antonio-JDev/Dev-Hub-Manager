@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>DevHub Manager - Team Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#6366f1", // Indigo 500
+                        secondary: "#10b981", // Emerald 500
+                        warning: "#f59e0b", // Amber 500
+                        danger: "#ef4444", // Red 500
+                        "background-light": "#f3f4f6", // Gray 100
+                        "background-dark": "#0B1121", // Deep Navy
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#151E32", // Lighter Navy for cards
+                        "border-light": "#e5e7eb",
+                        "border-dark": "#2d3748",
+                        "text-main-light": "#111827",
+                        "text-main-dark": "#f3f4f6",
+                        "text-muted-light": "#6b7280",
+                        "text-muted-dark": "#9ca3af",
+                    },
+                    fontFamily: {
+                        display: ["Inter", "sans-serif"],
+                        body: ["Inter", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.5rem",
+                    },
+                },
+            },
+        };
+    </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        #invite-modal:target {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark font-body transition-colors duration-300 antialiased h-screen flex overflow-hidden dark">
+    <aside
+        class="w-20 lg:w-64 bg-surface-light dark:bg-surface-dark border-r border-border-light dark:border-border-dark flex-col hidden md:flex z-40 transition-all duration-300">
+        <div
+            class="h-20 flex items-center justify-center lg:justify-start lg:px-6 border-b border-border-light dark:border-border-dark flex-shrink-0">
+            <div
+                class="w-8 h-8 lg:w-8 lg:h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-indigo-500/30 flex-shrink-0">
+                D
+            </div>
+            <span
+                class="ml-3 font-bold text-lg hidden lg:block tracking-tight text-text-main-light dark:text-white">DevHub</span>
+        </div>
+        <nav class="flex-1 overflow-y-auto py-6 px-3 lg:px-4 space-y-1">
+            <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 hover:text-primary dark:hover:text-white transition-colors group"
+                href="#">
+                <span
+                    class="material-icons-outlined group-hover:text-primary dark:group-hover:text-white">dashboard</span>
+                <span class="font-medium hidden lg:block">Dashboard</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 hover:text-primary dark:hover:text-white transition-colors group"
+                href="#">
+                <span class="material-icons-outlined group-hover:text-primary dark:group-hover:text-white">folder</span>
+                <span class="font-medium hidden lg:block">Projects</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 hover:text-primary dark:hover:text-white transition-colors group"
+                href="#">
+                <span
+                    class="material-symbols-outlined group-hover:text-primary dark:group-hover:text-white">view_kanban</span>
+                <span class="font-medium hidden lg:block">Kanban Board</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 hover:text-primary dark:hover:text-white transition-colors group"
+                href="#">
+                <span class="material-icons-outlined group-hover:text-primary dark:group-hover:text-white">code</span>
+                <span class="font-medium hidden lg:block">Repository</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-primary/10 text-primary dark:text-primary transition-colors group"
+                href="#">
+                <span class="material-icons-outlined">groups</span>
+                <span class="font-medium hidden lg:block">Team</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 hover:text-primary dark:hover:text-white transition-colors group"
+                href="#">
+                <span
+                    class="material-icons-outlined group-hover:text-primary dark:group-hover:text-white">description</span>
+                <span class="font-medium hidden lg:block">Notes</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 hover:text-primary dark:hover:text-white transition-colors group"
+                href="#">
+                <span
+                    class="material-icons-outlined group-hover:text-primary dark:group-hover:text-white">settings</span>
+                <span class="font-medium hidden lg:block">Settings</span>
+            </a>
+        </nav>
+        <div class="p-4 border-t border-border-light dark:border-border-dark">
+            <button
+                class="flex items-center gap-3 px-3 py-3 w-full rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-red-500/10 hover:text-danger transition-colors justify-center lg:justify-start">
+                <span class="material-icons-outlined">logout</span>
+                <span class="font-medium hidden lg:block">Sign Out</span>
+            </button>
+        </div>
+    </aside>
+    <div class="flex-1 flex flex-col h-full relative">
+        <header
+            class="h-20 px-6 border-b border-border-light dark:border-border-dark flex items-center justify-between bg-surface-light dark:bg-surface-dark flex-shrink-0 z-30">
+            <div class="flex items-center gap-4">
+                <div class="md:hidden">
+                    <button class="p-2 text-text-muted-light dark:text-text-muted-dark">
+                        <span class="material-icons-outlined">menu</span>
+                    </button>
+                </div>
+                <div class="relative group hidden sm:block">
+                    <button
+                        class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors border border-transparent hover:border-border-light dark:hover:border-border-dark">
+                        <div class="w-8 h-8 rounded-md bg-blue-500/20 flex items-center justify-center text-blue-500">
+                            <span class="material-symbols-outlined text-lg">rocket_launch</span>
+                        </div>
+                        <div class="text-left">
+                            <p class="text-xs text-text-muted-light dark:text-text-muted-dark">Current Project</p>
+                            <h2 class="text-sm font-bold text-text-main-light dark:text-white flex items-center gap-1">
+                                SaaS Platform V2
+                                <span class="material-icons-outlined text-sm">expand_more</span>
+                            </h2>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button
+                    class="relative p-2 rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 transition-all">
+                    <span class="material-icons-outlined">notifications</span>
+                    <span
+                        class="absolute top-2 right-2 w-2 h-2 bg-danger rounded-full border-2 border-surface-light dark:border-surface-dark"></span>
+                </button>
+                <button
+                    class="p-2 rounded-lg text-text-muted-light dark:text-text-muted-dark hover:bg-gray-100 dark:hover:bg-white/5 transition-all"
+                    onclick="document.documentElement.classList.toggle('dark')">
+                    <span class="material-icons-outlined">brightness_4</span>
+                </button>
+                <div class="h-8 w-[1px] bg-border-light dark:border-border-dark hidden sm:block"></div>
+                <div class="flex items-center gap-3 cursor-pointer">
+                    <div class="text-right hidden sm:block">
+                        <p class="text-sm font-medium text-text-main-light dark:text-white">Developer</p>
+                        <p class="text-xs text-text-muted-light dark:text-text-muted-dark">Admin</p>
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-purple-600 p-[2px]">
+                        <img alt="Profile"
+                            class="rounded-full h-full w-full object-cover border-2 border-surface-light dark:border-surface-dark"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ0EmT3Gm3Rd160xnvwEmMb1I-IifzXrLAp83s9627YFZxM-XY0c8iFuDU5y1hKRDfX-VOd3hs4GefEnBqUtt60oGyFm4X3UHdB2CPVtkXm017TViPi3dCPP6Rct0BmneRdGfKrwgHaEsyHH30O1ithOp-E-d5ExvGlRiKgNt2L-Uovoc4abhtBoHBTZDvtL85Bvt0mXV12wSbkpLxEVM4BenOknkNN6iLzXoUf5mcEPX2QLPkegJU7cit4OcExyLCnoVzovbkVtbk" />
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="flex-1 overflow-y-auto p-6 md:p-8 lg:p-12 w-full max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-text-main-light dark:text-white tracking-tight mb-1">Team
+                        Management</h1>
+                    <p class="text-sm text-text-muted-light dark:text-text-muted-dark">Manage members and permissions
+                        for <span class="text-primary font-medium">SaaS Platform V2</span></p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <div class="relative group hidden sm:block">
+                        <span
+                            class="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark">
+                            <span class="material-icons-outlined text-[18px]">search</span>
+                        </span>
+                        <input
+                            class="pl-9 pr-4 py-2 bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark rounded-lg text-sm text-text-main-light dark:text-white focus:outline-none focus:ring-2 focus:ring-primary w-56 shadow-sm transition-all placeholder-gray-500"
+                            placeholder="Search members..." type="text" />
+                    </div>
+                    <a class="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-indigo-600 text-sm font-medium shadow-lg shadow-indigo-500/20 transition-all transform hover:-translate-y-0.5"
+                        href="#invite-modal">
+                        <span class="material-icons-outlined text-[18px]">person_add</span>
+                        <span>Invite Member</span>
+                    </a>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div
+                    class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark p-6 shadow-sm flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                        <span class="material-icons-outlined text-2xl">groups</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-text-muted-light dark:text-text-muted-dark font-medium">Total Members</p>
+                        <h3 class="text-2xl font-bold text-text-main-light dark:text-white">8</h3>
+                    </div>
+                </div>
+                <div
+                    class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark p-6 shadow-sm flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-secondary/10 text-secondary flex items-center justify-center">
+                        <span class="material-icons-outlined text-2xl">check_circle</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-text-muted-light dark:text-text-muted-dark font-medium">Active Now</p>
+                        <h3 class="text-2xl font-bold text-text-main-light dark:text-white">5</h3>
+                    </div>
+                </div>
+                <div
+                    class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark p-6 shadow-sm flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-lg bg-warning/10 text-warning flex items-center justify-center">
+                        <span class="material-icons-outlined text-2xl">hourglass_empty</span>
+                    </div>
+                    <div>
+                        <p class="text-sm text-text-muted-light dark:text-text-muted-dark font-medium">Pending Invites
+                        </p>
+                        <h3 class="text-2xl font-bold text-text-main-light dark:text-white">2</h3>
+                    </div>
+                </div>
+            </div>
+            <div
+                class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead
+                            class="bg-background-light dark:bg-background-dark/50 border-b border-border-light dark:border-border-dark">
+                            <tr>
+                                <th
+                                    class="px-6 py-4 font-semibold text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider text-xs">
+                                    Member</th>
+                                <th
+                                    class="px-6 py-4 font-semibold text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider text-xs">
+                                    Role</th>
+                                <th
+                                    class="px-6 py-4 font-semibold text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider text-xs">
+                                    Status</th>
+                                <th
+                                    class="px-6 py-4 font-semibold text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider text-xs hidden sm:table-cell">
+                                    Joined</th>
+                                <th
+                                    class="px-6 py-4 text-right font-semibold text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider text-xs">
+                                    Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-border-light dark:divide-border-dark">
+                            <tr class="group hover:bg-background-light dark:hover:bg-white/[0.02] transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <img alt="Member"
+                                            class="w-10 h-10 rounded-full border border-border-light dark:border-border-dark object-cover"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZ0EmT3Gm3Rd160xnvwEmMb1I-IifzXrLAp83s9627YFZxM-XY0c8iFuDU5y1hKRDfX-VOd3hs4GefEnBqUtt60oGyFm4X3UHdB2CPVtkXm017TViPi3dCPP6Rct0BmneRdGfKrwgHaEsyHH30O1ithOp-E-d5ExvGlRiKgNt2L-Uovoc4abhtBoHBTZDvtL85Bvt0mXV12wSbkpLxEVM4BenOknkNN6iLzXoUf5mcEPX2QLPkegJU7cit4OcExyLCnoVzovbkVtbk" />
+                                        <div>
+                                            <p class="font-medium text-text-main-light dark:text-white">You (Developer)
+                                            </p>
+                                            <p class="text-xs text-text-muted-light dark:text-text-muted-dark">
+                                                dev@example.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-purple-500/10 text-purple-500 border border-purple-500/20">
+                                        Admin
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-secondary/10 text-secondary">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                        Active
+                                    </span>
+                                </td>
+                                <td
+                                    class="px-6 py-4 text-text-muted-light dark:text-text-muted-dark hidden sm:table-cell">
+                                    Oct 12, 2023
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button
+                                        class="text-text-muted-light dark:text-text-muted-dark hover:text-primary dark:hover:text-white transition-colors"
+                                        disabled="">
+                                        <span class="material-icons-outlined">lock</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="group hover:bg-background-light dark:hover:bg-white/[0.02] transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <img alt="Member"
+                                            class="w-10 h-10 rounded-full border border-border-light dark:border-border-dark object-cover"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX2NhJtJ4tp8GKQHBFbpK8WNY1qKVPzpS_xaCA6q_sY4oFA0Yd64zeBX5zgoNlxATg37AyTnnHsLqZTcfcSRjGKwIxc3-fOyNiq0pLiEEQ0wg8XnDyiyaR7sLt4qPbHI6hpC2X-k6sOOk5pljXadhF2b3ATTY18TuT9RRyqWnZc6r-YpMBiOKy9wfEXr7H1IW6R9F-GHUVrcUJYr3qCAWvazAACRhOTckYk4Yf9FsJB_XY8ilA1NJF6olE01ekXhtJTShgomX2aha7" />
+                                        <div>
+                                            <p class="font-medium text-text-main-light dark:text-white">Sarah Connor</p>
+                                            <p class="text-xs text-text-muted-light dark:text-text-muted-dark">
+                                                sarah.c@example.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="relative group/role">
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-blue-500/10 text-blue-500 border border-blue-500/20 cursor-pointer hover:bg-blue-500/20 transition-colors">
+                                            Developer
+                                            <span class="material-icons-outlined text-[10px]">edit</span>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-secondary/10 text-secondary">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                        Active
+                                    </span>
+                                </td>
+                                <td
+                                    class="px-6 py-4 text-text-muted-light dark:text-text-muted-dark hidden sm:table-cell">
+                                    Nov 03, 2023
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button
+                                        class="text-text-muted-light dark:text-text-muted-dark hover:text-danger dark:hover:text-red-400 transition-colors">
+                                        <span class="material-icons-outlined">more_vert</span>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="group hover:bg-background-light dark:hover:bg-white/[0.02] transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center text-white font-semibold text-sm border border-border-light dark:border-border-dark">
+                                            MS
+                                        </div>
+                                        <div>
+                                            <p class="font-medium text-text-main-light dark:text-white italic">Mike
+                                                Smith</p>
+                                            <p class="text-xs text-text-muted-light dark:text-text-muted-dark">
+                                                mike.smith@design.co</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-gray-500/10 text-gray-500 border border-gray-500/20">
+                                        Viewer
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-warning/10 text-warning">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-warning animate-pulse"></span>
+                                        Pending
+                                    </span>
+                                </td>
+                                <td
+                                    class="px-6 py-4 text-text-muted-light dark:text-text-muted-dark hidden sm:table-cell">
+                                    -
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <button
+                                            class="text-xs text-primary hover:text-indigo-400 font-medium">Resend</button>
+                                        <button
+                                            class="text-text-muted-light dark:text-text-muted-dark hover:text-danger dark:hover:text-red-400 transition-colors">
+                                            <span class="material-icons-outlined">close</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="group hover:bg-background-light dark:hover:bg-white/[0.02] transition-colors">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <img alt="Member"
+                                            class="w-10 h-10 rounded-full border border-border-light dark:border-border-dark object-cover"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN25d3nMuk7LNbgxgpWMbv5uubvXPvyWLM7VYC_i5mI_Cq_MUHfH-hgeeC4vGZqHWsHCb4hr9PJM5Ny7yDXzW30K2j6Vn9ri48JTgSKPhp4JT6cZ1gyvHk6tTVqQGQdcEy0MpUxSQJPPy34HYhgUx4ni9lrbOn5Bldfg4V4Pj4npS-wLRk1xKP1RTqUnKXdiPVHIFhRXcsRq4UbnkR8sUSHMHtWKbT04ocbGzkesNbpPC7m4_XUrgDHSedj9VdJrJmLkiMG_rqJTGt" />
+                                        <div>
+                                            <p class="font-medium text-text-main-light dark:text-white">Emily Chen</p>
+                                            <p class="text-xs text-text-muted-light dark:text-text-muted-dark">
+                                                emily.c@example.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-blue-500/10 text-blue-500 border border-blue-500/20">
+                                        Developer
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span
+                                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-secondary/10 text-secondary">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                        Active
+                                    </span>
+                                </td>
+                                <td
+                                    class="px-6 py-4 text-text-muted-light dark:text-text-muted-dark hidden sm:table-cell">
+                                    Dec 01, 2023
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button
+                                        class="text-text-muted-light dark:text-text-muted-dark hover:text-danger dark:hover:text-red-400 transition-colors">
+                                        <span class="material-icons-outlined">more_vert</span>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div
+                    class="px-6 py-4 border-t border-border-light dark:border-border-dark flex items-center justify-between">
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark">Showing 4 of 8 members</p>
+                    <div class="flex items-center gap-2">
+                        <button
+                            class="p-1 rounded hover:bg-gray-100 dark:hover:bg-white/5 text-text-muted-light dark:text-text-muted-dark disabled:opacity-50"
+                            disabled="">
+                            <span class="material-icons-outlined">chevron_left</span>
+                        </button>
+                        <button
+                            class="p-1 rounded hover:bg-gray-100 dark:hover:bg-white/5 text-text-muted-light dark:text-text-muted-dark">
+                            <span class="material-icons-outlined">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm transition-opacity opacity-0 target:opacity-100 pointer-events-none target:pointer-events-auto"
+        id="invite-modal">
+        <a class="absolute inset-0 cursor-default" href="#"></a>
+        <div
+            class="bg-surface-light dark:bg-surface-dark w-full max-w-md rounded-2xl shadow-2xl border border-border-light dark:border-border-dark relative z-10 transform scale-95 target:scale-100 transition-transform duration-200">
+            <div class="p-6 border-b border-border-light dark:border-border-dark flex justify-between items-center">
+                <h3 class="text-xl font-bold text-text-main-light dark:text-white">Invite Team Member</h3>
+                <a class="text-text-muted-light dark:text-text-muted-dark hover:text-text-main-light dark:hover:text-white transition-colors"
+                    href="#">
+                    <span class="material-icons-outlined">close</span>
+                </a>
+            </div>
+            <div class="p-6 space-y-5">
+                <p class="text-sm text-text-muted-light dark:text-text-muted-dark">
+                    Send an invitation link to a new member to join <span class="font-semibold text-primary">SaaS
+                        Platform V2</span>.
+                </p>
+                <div>
+                    <label class="block text-sm font-medium text-text-main-light dark:text-white mb-2">Email
+                        Address</label>
+                    <div class="relative">
+                        <span
+                            class="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark">
+                            <span class="material-icons-outlined text-[18px]">email</span>
+                        </span>
+                        <input
+                            class="w-full pl-10 pr-4 py-2.5 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg text-sm text-text-main-light dark:text-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all"
+                            placeholder="colleague@company.com" type="email" />
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-text-main-light dark:text-white mb-2">Role</label>
+                    <div class="relative">
+                        <span
+                            class="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark">
+                            <span class="material-icons-outlined text-[18px]">admin_panel_settings</span>
+                        </span>
+                        <select
+                            class="w-full pl-10 pr-10 py-2.5 bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark rounded-lg text-sm text-text-main-light dark:text-white focus:ring-2 focus:ring-primary focus:border-primary outline-none appearance-none transition-all">
+                            <option value="developer">Developer (Can edit code, tasks)</option>
+                            <option value="viewer">Viewer (Read-only access)</option>
+                            <option value="admin">Admin (Full project access)</option>
+                        </select>
+                        <span
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-text-muted-light dark:text-text-muted-dark pointer-events-none">
+                            <span class="material-icons-outlined text-[18px]">expand_more</span>
+                        </span>
+                    </div>
+                    <p class="text-xs text-text-muted-light dark:text-text-muted-dark mt-2">
+                        <span class="material-icons-outlined text-[12px] align-middle mr-1">info</span>
+                        Admins can manage project settings and team members.
+                    </p>
+                </div>
+            </div>
+            <div
+                class="p-6 border-t border-border-light dark:border-border-dark flex justify-end gap-3 bg-background-light/50 dark:bg-background-dark/30 rounded-b-2xl">
+                <a class="px-4 py-2 rounded-lg text-sm font-medium text-text-main-light dark:text-white hover:bg-gray-200 dark:hover:bg-white/5 transition-colors"
+                    href="#">
+                    Cancel
+                </a>
+                <button
+                    class="px-4 py-2 rounded-lg text-sm font-medium bg-primary text-white hover:bg-indigo-600 shadow-lg shadow-indigo-500/20 transition-all transform active:scale-95">
+                    Send Invite
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
